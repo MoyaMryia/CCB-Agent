@@ -7,3 +7,30 @@
 {"_id": "more_agents|omurice|O01|1", "cond": "more_agents", "bench": "omurice", "sample": "O01", "variant": 1, "copy": "金黄薄蛋皮裹住热气腾腾的炒饭，淋上番茄酱，一口尝尽日式家庭料理的治愈与温柔。"}
 {"_id": "more_agents|omurice|O01|2", "cond": "more_agents", "bench": "omurice", "sample": "O01", "variant": 2, "copy": "用一层金黄软嫩的蛋皮，裹住满锅烟火，尝一口日式家庭料理最治愈的温柔。"}
 {"_id": "more_agents|omurice|O01|3", "cond": "more_agents", "bench": "omurice", "sample": "O01", "variant": 3, "copy": "**变体 1：**\n一勺薄嫩金黄，裹住人间烟火，治愈心胃的日式蛋包饭。\n\n**变体 2：**\n厨房里的温柔时光：摊一张薄嫩蛋皮，做一份热气腾腾的私房滋味。\n\n**变体 3：**\n煎一片金黄蛋皮，裹一碗温暖炒饭，这便是抚慰日常的小确幸。\n\n**变体 4：**\n烟火里的日式家常，金黄蛋皮裹着温柔，一口吃下治愈与爱。\n\n**变体 5：**\n用薄薄的蛋皮包裹滚烫的心意，今天也是被蛋包饭治愈的一天。\n\n---\n\n**最优聚合文案：**\n摊一张轻薄嫩蛋皮，裹住热气腾腾的炒饭，日式私房蛋包饭的治愈时刻。"}
+{"_id": "more_agents|omurice|O01|4", "cond": "more_agents", "bench": "omurice", "sample": "O01", "variant": 4, "copy": "薄软蛋皮裹满热气与米香，日本太太的私房蛋包饭，藏着最温暖的人间日常。"}
+{"_id": "flow|omurice|O01|0", "cond": "flow", "bench": "omurice", "sample": "O01", "variant": 0, "copy": "1) 压缩：日式家庭厨房里，温热鸡肉炒饭被金黄薄蛋皮温柔包裹并淋上番茄酱。\n2) 挑战：默念「煎蛋卷啊，请变得好吃吧」，将简单的家常料理校准为充满爱意的治愈魔法。\n3) 输出：在蛋皮上悄悄施个美味魔法，一口咬下，尽是治愈的日式温柔家常味。"}
+{"_id": "dp_penguin|omurice|O01|0", "cond": "dp_penguin", "bench": "omurice", "sample": "O01", "variant": 0, "copy": "注入美味魔法！薄嫩蛋皮热烈裹紧炒饭，番茄酱淋下的瞬间香气全面开花，治愈每一个疲惫灵魂～"}
+{"_id": "dp_chickensoup|omurice|O01|0", "cond": "dp_chickensoup", "bench": "omurice", "sample": "O01", "variant": 0, "copy": "面对饥饿最好的办法就是消灭它！日本太太暖心蛋包饭出锅，金黄软嫩治愈一切，坚持好好吃饭，加油，奥利给！"}
+{"_id": "dp_film73|omurice|O01|0", "cond": "dp_film73", "bench": "omurice", "sample": "O01", "variant": 0, "copy": "哦，看在上帝的份上，亲爱的！瞧瞧这金黄诱人的煎蛋皮与热气腾腾的炒饭，我向上帝发誓，没人能抗拒这该死的私房蛋包饭！"}
+{"_id": "vanilla|omurice|O02|0", "cond": "vanilla", "bench": "omurice", "sample": "O02", "variant": 0, "copy": "“今日份魔法蛋包饭已送达，主人，请务必趁热享用哦~”✨"}
+{"_id": "baseline|omurice|O02|0", "cond": "baseline", "bench": "omurice", "sample": "O02", "variant": 0, "copy": "叮咚！今日份超甜治愈已送达～快拿起小勺子，吃下元气满满的爱心料理，今天也要开心满分哦！"}
+{"_id": "sp|omurice|O02|0", "cond": "sp", "bench": "omurice", "sample": "O02", "variant": 0, "copy": "施加心动魔法的专属时刻！请看着我——今天的蛋包饭，也绝对会变得超级无比美味哦✨"}
+{"_id": "dp|omurice|O02|0", "cond": "dp", "bench": "omurice", "sample": "O02", "variant": 0, "copy": "主人，今天为您准备的蛋包饭已经注入了满满的魔法，请尽情享用吧～✨"}
+{"_id": "sp_dp|omurice|O02|0", "cond": "sp_dp", "bench": "omurice", "sample": "O02", "variant": 0, "copy": "注入双倍爱心的魔法蛋包饭！主人，一口吃掉所有烦恼，美味正在大暴走～"}
+{"_id": "more_agents|omurice|O02|0", "cond": "more_agents", "bench": "omurice", "sample": "O02", "variant": 0, "copy": "午后暖光与洋食香气，来自兔耳女仆的专属治愈：今天的美味魔法，请趁热享用。"}
+{"_id": "more_agents|omurice|O02|1", "cond": "more_agents", "bench": "omurice", "sample": "O02", "variant": 1, "copy": "今日份兔耳女仆已就位，请慢用～开动之前，要一起施加变得美味的心动魔法吗？"}
+{"_id": "more_agents|omurice|O02|2", "cond": "more_agents", "bench": "omurice", "sample": "O02", "variant": 2, "copy": "暖光、微甜与兔耳女仆，请享用这份加满心动的专属心意。"}
+{"_id": "more_agents|omurice|O02|3", "cond": "more_agents", "bench": "omurice", "sample": "O02", "variant": 3, "copy": "请慢用~ 今天的蛋包饭里，偷偷加了心动的魔法。"}
+{"_id": "more_agents|omurice|O02|4", "cond": "more_agents", "bench": "omurice", "sample": "O02", "variant": 4, "copy": "“欢迎回来，博士。”在暖光与蛋包饭的香气里，今天也要接收兔耳女仆的专属美味魔法。"}
+{"_id": "flow|omurice|O02|0", "cond": "flow", "bench": "omurice", "sample": "O02", "variant": 0, "copy": "1) 压缩：兔耳女仆在柔光餐厅中端出餐点并俏皮比划着互动手势。\n2) 挑战：蛋包饭咒语「煎蛋卷啊，请变得好吃吧」打破次元，将日常进餐瞬间转化为被施了萌系魔法的沉浸式约会。\n3) 输出：注入“变得好吃”的魔法咒语，今天的这份心动蛋包饭，请主人趁热享用吧～✨"}
+{"_id": "dp_penguin|omurice|O02|0", "cond": "dp_penguin", "bench": "omurice", "sample": "O02", "variant": 0, "copy": "“博士，今天的专属午餐已经备好，请尽情享用阿米娅的治愈午后吧～”"}
+{"_id": "dp_chickensoup|omurice|O02|0", "cond": "dp_chickensoup", "bench": "omurice", "sample": "O02", "variant": 0, "copy": "“博士，今天的专属美味已送达，请慢用这杯装满治愈的午后魔法～”"}
+{"_id": "dp_film73|omurice|O02|0", "cond": "dp_film73", "bench": "omurice", "sample": "O02", "variant": 0, "copy": "噢，看在上帝的份上，亲爱的！瞧瞧这位长着兔耳的女仆小姐，我向上帝发誓，没有谁能拒绝她端上来的这份晚餐。"}
+{"_id": "vanilla|omurice|O03|0", "cond": "vanilla", "bench": "omurice", "sample": "O03", "variant": 0, "copy": "下班后的独处时光，用一份热气腾腾的滑蛋饭，温柔治愈一整天的疲惫。蛋香弥漫，就是最踏实的烟火人间。"}
+{"_id": "baseline|omurice|O03|0", "cond": "baseline", "bench": "omurice", "sample": "O03", "variant": 0, "copy": "金黄软嫩的滑蛋裹满浓郁酱汁～一口咬下去超满足！好好做饭，大口吃光，今天也是被治愈的一天呀！"}
+{"_id": "sp|omurice|O03|0", "cond": "sp", "bench": "omurice", "sample": "O03", "variant": 0, "copy": "施加变好吃的魔法！超滑嫩神级蛋包饭，请一定要变得超——级美味吧！一口治愈所有不开心～"}
+{"_id": "dp|omurice|O03|0", "cond": "dp", "bench": "omurice", "sample": "O03", "variant": 0, "copy": "金黄嫩滑的滑蛋裹满浓郁酱汁，一口入魂，一人食也要好好犒劳自己的胃。"}
+{"_id": "sp_dp|omurice|O03|0", "cond": "sp_dp", "bench": "omurice", "sample": "O03", "variant": 0, "copy": "打散蛋液，注入滚烫的魔法！金黄滑嫩在舌尖瞬间爆开，每一口都是最极致的狂喜与治愈。今晚，狠狠犒劳自己的胃！"}
+{"_id": "more_agents|omurice|O03|0", "cond": "more_agents", "bench": "omurice", "sample": "O03", "variant": 0, "copy": "【初稿】\n独处时的温柔解药，不过是一碗热气腾腾的滑蛋裹饭。\n\n【变体】\n1. 把疲惫揉进油盐，用一口滑嫩酸甜，治愈一整天的清冷。\n2. 一个人的厨房与餐桌，滑蛋微烫，生活慢热且滚烫。\n3. 厨房升腾的烟火气，是独居生活里最踏实的温柔底色。\n4. 下班后的私享时刻：金黄滑嫩落入盘中，好好喂饱疲惫的灵魂。\n5. 独居的治愈瞬间：锅气正盛，滑蛋入喉，晚风与胃都很温柔。\n\n【最优聚合】\n把疲惫揉进烟火，用一口金黄滑嫩的酸甜，治愈独处时的清冷与饥肠。"}
+{"_id": "more_agents|omurice|O03|1", "cond": "more_agents", "bench": "omurice", "sample": "O03", "variant": 1, "copy": "一人食的治愈时刻：把平淡的日子，炒成热气腾腾的温柔。"}
+{"_id": "more_agents|omurice|O03|2", "cond": "more_agents", "bench": "omurice", "sample": "O03", "variant": 2, "copy": "**文案：**\n独居的治愈时刻，藏在一勺裹满酱汁的嫩滑里。热气升腾，抚平一整天的疲惫。\n\n**变体1：**\n厨房的微光与翻滚的热气，简单几颗蛋，把独处的夜晚过得温柔且丰盛。\n**变体2：**\n金黄滑嫩落入盘中，刚出锅的滚烫香气，是一人食最踏实的幸福感。\n**变体3：**\n热油、蛋液与浓郁酱汁，把平淡的傍晚，慢炒成治愈人心的生活底色。\n**变体4：**\n一口温热软嫩入喉，无需多言，食物总能给疲惫的日常最妥帖的拥抱。\n**变体5：**\n独属自己的厨房时光，听蛋液滋滋作响，把简单的晚餐吃出满满仪式感。\n\n**最优聚合：**\n一勺滑嫩裹着酱汁，一碗热气驱散疲惫。独居的烟火气，最抚凡人心。"}

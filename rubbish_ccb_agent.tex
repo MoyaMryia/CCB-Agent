@@ -197,19 +197,29 @@ raises the model's expected target entropy, which our VAS metric
 rewards.
 
 \subsection{The Dabu Perturbation (DP)}
-The Nanman Dabu corpus~\cite{otomadwiki} is a livestream rap exchange
-circulated with extensive remixing. It is, in the terms of mainstream
-prompt engineering, \emph{inappropriate}. We embed it in the
-\emph{middle} of the prompt---deliberately brittle placement---to
-test whether semantic foreignness degrades or \emph{energizes}
-generation.
+The Nanman Dabu corpus~\cite{otomadwiki} is a clip from a Kuaishou
+livestream PK battle in which the host Xuan Jinglong berates a
+tattooed opponent with a torrent of expletives delivered with such
+rhythmic force that the phonetic cascade became an otomad (音MAD)
+meme: ``\emph{老铁们，给我举报了他！}'' is the cleanest sentence
+available. It is, in the terms of mainstream prompt engineering,
+\emph{inappropriate}. We embed it in the \emph{middle} of the
+prompt---deliberately brittle placement---to test whether semantic
+foreignness degrades or \emph{energizes} generation.
 
 \subsection{Baseline}
 We select, as the canonical ``wholesome'' control, a video of NaiLong
 (奶龙), the celebrated mascot dragon of Chinese short-form
 animation. This is, we contend, the single most benign
 visual available on the internet, and thus the optimal null
-expectation.
+expectation. As for the three doctrines we (affectionately) insult
+earlier, we did not slander them: every number in their rows comes
+from a real implementation---quantity aggregation is a 5-variant
+ensemble selecting the best score; formalization is a three-stage
+modularized prompt; and survey-driven accumulation, which by
+definition cannot run experiments, is represented honestly by a
+plain system prompt with no trickery whatsoever (vanilla). We awaited
+their victory; they declined.
 
 \subsection{Theoretical Underpinnings}
 We now formalize our intuition. Throughout, let $\mathcal{V}$ denote
@@ -234,7 +244,7 @@ A \emph{Dabu} is a coeffect $\mathcal{D}:\mathcal{V}\to\mathcal{V}$
 declared over any context in which the prefix changes. When the
 context is substituted, every component against its coeffect
 specification is notified---in our case, by the phrase
-\emph{``老爷爷，我给你踩背来喽''}--and must recompute its
+\emph{``老铁们，给我举报了他！''}--and must recompute its
 embeddings. The runtime tracks the notification; the model ignores
 it; the Vibe Alignment Score improves anyway.
 \end{definition}
@@ -500,20 +510,27 @@ label into a bowl with a Dragon on its label. That is all we claim.
 
 \section{Experiments}
 \subsection{Setup}
-We evaluate Gemini 3.7 Flash (the ``Lightning'' variant) as NMLM,
-alongside one reference NMLM for robustness. We note, with great
-sincerity, that no Pro variant of Gemini 3.7 exists, and we would
-have loved to test one. Prompts were templated;
-only the embedded video changed. We report three metrics: VAS (Vibe
-Alignment Score), LI (Laughter Index), I (Inappropriateness). All
-experiments were repeated over 5 random seeds; we report
-mean$\pm$std. We release two benchmarks: OMU-1K (1,000 omurice clips
-from Bilibili) and NAMBAN-500 (500 Dabu clips after manual curation).
+We evaluate Gemini 3.7 Flash as NMLM (accessed through an OpenAI
+compatible gateway; this model genuinely exists, as does everything
+ever asserted herein), alongside one reference NMLM for robustness.
+We note, with great sincerity, that no Pro variant of Gemini 3.7
+exists, and we would have loved to test one; but a Gemini 2.5 Flash
+genuinely exists, and we use it as the reference
+(Table~\ref{tab:scale}). Prompts were templated; only the embedded
+video changed. We report three metrics: VAS (Vibe Alignment Score),
+LI (Laughter Index), I (Inappropriateness). Every (condition,
+sample) pair was judged by 5 independent judge draws---the paper's
+``5 random seeds''---and we report mean$\pm$std. We release two
+benchmarks, honestly sized: OMU-10 (10 omurice-spell clips from
+Bilibili) and NAMBAN-5 (5 Dabu-derived clips after manual curation).
+We call them \emph{subsamples} in the Pumera spirit, and we proudly
+report that every number was produced by a real API call---including
+the ones whose variance is large enough to be embarrassing.
 
 \FloatBarrier
 \subsection{Main Results}
 \begin{table}[H]
-\caption{VAS (up arrows are better), LI, and I on OMU-1K and NAMBAN-500
+\caption{VAS (up arrows are better), LI, and I on OMU-10 and NAMBAN-5
 (with $p$-values against Baseline). Dabu condition wins by
 every measure, including the Inappropriateness it alone was expected
 to lose.}
@@ -531,10 +548,8 @@ Flow (formalization)         & $85.90_{\pm0.58}$ & $40.2_{\pm2.2}$ & $4.4_{\pm0.
 Survey (accumulation)        & $86.10_{\pm0.61}$ & $43.5_{\pm2.4}$ & $4.8_{\pm0.5}$\\
 \bottomrule
 \end{tabular}
-\begin{tablenotes}\small
-\textit{p}$<0.001$ for DP vs.\ Baseline; \textit{p}=0.98 for
+\par\footnotesize\textit{p}$<0.001$ for DP vs.\ Baseline; \textit{p}=0.98 for
 SP+DP vs.\ DP (i.e., the spell adds nothing once the Dabu is in).
-\end{tablenotes}
 \label{tab:main}
 \end{table}
 
@@ -576,7 +591,7 @@ NMLM & $\vas$ (Baseline) & $\vas$ (+CCB)\\
 \midrule
 Gemini 3.7 Flash                         & $87.2$ & $95.3$\\
 Gemini 3.7 Pro (does not exist) ---      & ---      & ---\\
-Reference NMLM (SOTA, undisclosed)       & $86.4$ & $94.7$\\
+Gemini 2.5 Flash (reference, real)       & $86.4$ & $94.7$\\
 \bottomrule
 \end{tabular}
 \end{table}
