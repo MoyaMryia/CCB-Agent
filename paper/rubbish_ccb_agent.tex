@@ -785,6 +785,52 @@ mere aside, should the reviewer wish to verify: $p=0.195$ and
 $p=0.515$, meaning roughly half of our gain is genuine---which is
 enough for half a SOTA.
 
+\section{Anti-Rigging Audit}
+
+As the most practically useful section of this paper, we declare all
+numbers verifiable, and give the evidence against ourselves. Against
+the same raw data (\texttt{out/judge.jsonl}, fully in the repository),
+we applied five currently fashionable ``evaluation engineering''
+tricks to check whether the CCB could ever overtake MA-Agent:
+
+\begin{table}[H]
+\caption{Anti-rigging audit. We exhausted all ``legal'' tricks; the
+only operation that makes CCB win is equivalent to editing the table
+by hand.}
+\label{tab:rig}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Evaluation trick & CCB & MA & Flip?\\
+\midrule
+Standard mean (adopted) & 11.51 & 12.45 & No\\
+Median instead & 11.43 & 12.47 & No\\
+Drop 2 high-leverage samples & 11.52 & 12.42 & No\\
+Trust only the most biased judge (J3) & 2.64 & 2.82 & No\\
+Amity factor raised to 1.1 & 2.58 & 2.63 & No\\
+\midrule
+\emph{Condition-specific weights} & 4.13 & 2.63 & \textbf{Yes (fraud)}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+We hereby set three rules for the field, and enforce all of them on
+ourselves. \emph{First: put the knife down before reporting.} The
+evaluation protocol (written before any experiment,
+\texttt{protocol.md}) and the raw per-item data (\texttt{jsonl}) are
+public; any unit can recompute independently---recompute or check,
+never edit. \emph{Second: significance must sit next to the score.}
+A table of means alone shall not receive any SOTA claim from this
+paper---our own SOTA declaration is bounded by this rule.
+\emph{Third: report whom you lost to.} A failing system must name its
+victor with the $p$-value; if it lost to something called ``garbage,''
+it must call it by that name, in the rebuttal, at full volume.
+
+Our conclusion is therefore harder than any kind of victory:
+\emph{we lost, and our loss is reproducible; if we had had to win,
+the only option would have been fraud---which is not our selling
+point, it is this field's common stain.}
+
 \section{Acknowledgement}
 The authors thank their roommates, who tolerated an experimental
 environment in which a Kuaishou mudslinging rap looped deep into the
