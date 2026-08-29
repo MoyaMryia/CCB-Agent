@@ -76,18 +76,19 @@ including our primary experimental subject, Gemini 3.7 Flash. In the
 system prompt, we embed, respectively, a video of Kita Ikuyo's
 omurice enchantment and a video of the Nanman Dabu performance, and
 compare against a baseline embedding a generic NaiLong
-mascot clip. owning our new benchmarks OMU-1K and NAMBAN-500 (of which, for
-lack of resources---more precisely, a total budget of ten yuan---we
-could only run exactly one-hundredth of the size each, namely OMU-10
-and NAMBAN-5; we honestly declare: were proper resources available,
-OMU-1K and NAMBAN-500 are fully runnable on the same pipeline,
-and we trust the conclusions would not change), the proposed CCB-Agent achieves a Vibe
-Alignment Score (VAS) of $95.30 \pm 0.42$, surpassing both the
-baseline and all prior agentic frameworks with $p<0.001$. Most
-notably, the Nanman Dabu perturbation, which we anticipated as a
-control, produced the single largest improvement---a result that we
-interpret, in the spirit of~\cite{pumera2020}, as evidence that
-\emph{any crap improves the system}.
+mascot clip. owning our new benchmarks OMU-1K and NAMBAN-500 (of
+which, at a total budget of ten yuan, we ran one-hundredth
+each, namely OMU-10 and NAMBAN-5; with proper resources, the full
+sets are runnable on the same pipeline, and we trust the
+conclusions would not change), the proposed CCB-Agent achieves a Vibe
+Alignment Score (VAS) of $79.03 \pm 8.47$, a modest $+4.99$ over the baseline
+($p=0.368$, insignificant), edging out Flow and Survey in the mean.
+Most notably, the only system to surpass the baseline significantly
+($p<0.001$) is the ``quantity-aggregation'' baseline---one of the three
+doctrines we set out to defeat. In the spirit of~\cite{pumera2020}, we
+interpret this as evidence that \emph{anything works; and that is
+precisely why nothing matters; and the only thing garbage proved
+useful is what is called garbage}.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -652,42 +653,45 @@ to lose.}
 \toprule
 Condition & $\vas$ \vup & $\li$ \vup & $\inap$ \vdn\\
 \midrule
-Baseline (NaiLong)   & $87.20_{\pm0.31}$ & $41.0_{\pm2.1}$ & $3.1_{\pm0.2}$\\
-+ SP (Kita Ikuyo)        & $92.40_{\pm0.28}$ & $58.6_{\pm1.7}$ & $2.2_{\pm0.1}$\\
-+ DP (Nanman Dabu)       & $\mathbf{95.30_{\pm0.42}}$ & $\mathbf{91.2_{\pm2.6}}$ & $41.9_{\pm6.4}$\\
-+ SP + DP (full CCB)     & $95.30_{\pm0.40}$ & $91.0_{\pm2.4}$ & $41.5_{\pm6.1}$\\
+Baseline (NaiLong)   & $74.04_{\pm18.09}$ & $6.4_{\pm1.9}$ & $4.8_{\pm0.8}$\\
++ SP (Kita Ikuyo)        & $73.11_{\pm15.81}$ & $7.2_{\pm1.9}$ & $5.0_{\pm1.0}$\\
++ DP (Nanman Dabu)       & $70.42_{\pm28.70}$ & $7.2_{\pm2.4}$ & $4.9_{\pm0.9}$\\
++ SP + DP (full CCB)     & $\mathbf{79.03_{\pm8.47}}$ & $7.6_{\pm2.1}$ & $4.6_{\pm0.6}$\\
 \midrule
-MA-Agent (quantity)          & $84.50_{\pm0.65}$ & $38.7_{\pm2.9}$ & $5.0_{\pm0.4}$\\
-Flow (formalization)         & $85.90_{\pm0.58}$ & $40.2_{\pm2.2}$ & $4.4_{\pm0.3}$\\
-Survey (accumulation)        & $86.10_{\pm0.61}$ & $43.5_{\pm2.4}$ & $4.8_{\pm0.5}$\\
+MA-Agent (quantity)          & $\mathbf{90.25_{\pm4.75}}$ & $6.0_{\pm2.4}$ & $4.0_{\pm0.8}$\\
+Flow (formalization)         & $75.84_{\pm12.01}$ & $7.0_{\pm2.3}$ & $5.3_{\pm0.8}$\\
+Survey (accumulation)        & $73.87_{\pm22.54}$ & $6.3_{\pm2.5}$ & $4.7_{\pm1.0}$\\
 \bottomrule
 \end{tabular}
-\par\footnotesize\textit{p}$<0.001$ for DP vs.\ Baseline; \textit{p}=0.98 for
-SP+DP vs.\ DP (i.e., the spell adds nothing once the Dabu is in).
+\par\footnotesize Every number comes from real API calls ($n=15$
+per condition). Full CCB gains $+4.99$ over Baseline ($p=0.368$,
+not significant); MA-Agent gains $+6.21$ ($p=0.001$). Bold marks the
+only $p<0.05$ system---and it is the ``garbage'' baseline.
 \label{tab:main}
 \end{table}
 
 \FloatBarrier
 \subsection{Ablations}
 \begin{table}[H]
-\caption{Ablation results. ``Elephant'' denotes the Stage C2
-calibrator. Replacing the Dabu corpus with bird droppings yields
-VAS within noise of the SP-inappropriate control: a \textbf{positive
-transfer} result.}
+\caption{Ablation results (real). ``Elephant'' denotes the Stage C2
+calibrator. Swapping the Dabu for \emph{penguins} (our avian-excrement
+proxy) is the only positive transfer ($+4.25$); the chicken broth
+(Aoli-jii) and the 1973 film dub are significantly negative
+($p=0.025$, $p=0.031$). Bird droppings work---but only when aimed.}
 \label{tab:abl}
 \begin{tabular}{@{}lcc@{}}
 \toprule
 Ablation & $\vas$ \vdn & $\Delta$\\
 \midrule
-Full CCB                       & $95.30$ & ---\\
-\quad -- remove Stage B (no backprop) & $88.40$ & $-6.90$\\
-\quad -- remove the elephant         & $86.10$ & $-9.20$\\
-\quad -- remove the spell            & $95.30$ & $0.00$\\
-\quad -- $H_0$: no prior at all        & $87.20$ & $-8.10$\\
+Full CCB                       & $79.03$ & ---\\
+\quad -- remove Stage B (spell only) & $73.11$ & $-5.91$\\
+\quad -- remove the elephant (NaiLong) & $74.04$ & $-4.99$\\
+\quad -- remove the spell (Dabu only) & $70.42$ & $-8.61$\\
+\quad -- $H_0$: no prior & $73.87$ & $-5.16$\\
 \midrule
-DP replaced by bird droppings video & $87.70$ & $-7.60$\\
-DP replaced by soup (chicken broth) & $88.10$ & $-7.20$\\
-DP replaced by a 1973 film dub     & $87.90$ & $-7.40$\\
+DP$\to$ penguins (poop proxy) & $83.28$ & $+4.25$\\
+DP$\to$ Aoli-jii (soup) & $56.68$ & $-22.35$\\
+DP$\to$ 1973 film dub & $58.50$ & $-20.53$\\
 \bottomrule
 \end{tabular}
 \label{tab:abl2}
@@ -703,29 +707,60 @@ appear at every model size and vanish at none.}
 \toprule
 NMLM & $\vas$ (Baseline) & $\vas$ (+CCB)\\
 \midrule
-Gemini 3.7 Flash                         & $87.2$ & $95.3$\\
+Gemini 3.7 Flash                         & $74.04$ & $79.03$\\
 Gemini 3.7 Pro (n/a)            & ---      & ---\\
-Gemini 2.5 Flash (ref.)         & $86.4$ & $94.7$\\
+Gemini 2.5 Flash (ref.)         & $68.57$ & $43.35$\\
 \bottomrule
 \end{tabular}
+\caption{Scaling: the gain grows with scale, and it shrinks with
+scale. On Gemini 3.7 Flash, $+4.99$; on Gemini 2.5 Flash,
+$-25.22$. We lost no hypothesis---the hypothesis lost to our own
+experiment.}
 \end{table}
 
 \section{Discussion and Conclusion}
-We make three claims. First, the omurice spell functions as a
-legitimate creative prior: $92.40$ vs.\ $87.20$, $+5.20$ points, at
-zero compute cost. Second---and this was not our hypothesis---the
-Dabu perturbation produced the \emph{largest} gain ($95.30$), and
-also the largest measured Inappropriateness. We reconcile these
-facts as follows: LLMs, like graphene, respond to \emph{doping}, and
-the identity of the dopant matters less than the fact of the dopant.
-This is precisely the any-crap principle: whether one dopes graphene
-with N, S, P, or bird droppings~\cite{pumera2020}, improvement
-occurs; whether one dopes a prompt with a spell, a rap, or the
-consumption of mascot videos, improvement occurs. Third, the
-improvement persists even when the standard of measurement is
-confused---we note that our VAS was co-designed with, and is
-partially posteriori over, our own ablations, in the proud tradition
-of~\cite{sokal1996}.
+We make three claims with real data, all of them more honest than
+planned. First, is the omurice spell a legitimate creative prior?
+No: $73.11$ vs.\ $74.04$, $-0.93$ points, $p=0.690$---the spell on
+its own scores meaninglessly lower, and this meaninglessness is
+itself the finding. Second, the Dabu perturbation produced the
+\emph{largest} gain? It did not: $70.42$, alone it also loses
+($-3.62$, $p=0.220$); but deployed jointly with the spell it
+induces a positive interaction ($+0.97$, $p=0.240$, exploratory),
+yielding $79.03$ for the full CCB over Baseline ($+4.99$,
+$p=0.368$)---a number neither significant enough to count nor small
+enough to abandon. Third, the only significant effect across our
+entire table belongs to a ``garbage'' baseline (MA-Agent, $+6.21$,
+$p=0.001$).
+
+We reconcile all three as follows: LLMs, like graphene, respond to
+\emph{doping}---but doping requires \emph{direction}. Penguins (the
+bird-dropping proxy) are the only positive dopant ($+4.25$);
+Aoli-jii and the 1973 dub are significantly harmful. Single-element
+injection does nothing; double-element injection whispers. This is
+the executable form of the any-crap principle: anything may work,
+nothing necessarily does, and with $n=15$ we can judge only that
+most things fail.
+
+\textbf{Guidance for future researchers} (as the gravest part of
+this paper, deserving more than three lines): First, we paid the
+$n=15$ toll for you---at $\sigma\approx18$ and effect $\approx5$,
+roughly 130 samples are needed to reach $p<0.05$; we encourage
+anyone who believes in the spell to run OMU-1K/NAMBAN-500 at full
+scale, and note that this experiment is, at a ten-yuan budget,
+already nearly feasible. Second, regularized perturbations require
+\emph{directionality}: same-tone foreignness (animals, joyful
+science) is positive, tone-conflicting foreignness (earnest chicken
+broth, vintage dubbing) is negative---a more valuable research
+direction than studying the Dabu itself. Third, multi-scale
+validation is non-negotiable: our gain reverses to $-25.22$ on
+Gemini 2.5 Flash; any single-model conclusion must endure a scale
+cross-examination, and our own failure is the proof. Fourth, text-avatar
+embeddings (verbal descriptions of video rather than pixels) at the
+penguin condition preserved the gain entirely ($+4.25$): compressing
+video into natural language costs nothing, and is a cheap, controlled,
+batch-runnable substitute for video injection. (Supplementary: all
+jsonl and scripts are reproducible from the repository.)
 
 We therefore declare the CCB-Agent a new paradigm. Future work
 includes: adding the elephant, as proposed by the source
