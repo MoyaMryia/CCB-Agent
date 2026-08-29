@@ -161,8 +161,10 @@ conceptual baselines: quantity-aggregation across sampled
 agents~\cite{moreagents2024}, graph-based formalization of
 modular workflows~\cite{flow2025}, and survey-driven
 accumulation~\cite{gensurvey2026}. We report all three as baselines
-in Table~\ref{tab:main}, where they collectively underperform an
-agent that has simply watched a 12-second cooking spell.
+in Table~\ref{tab:main}, where, by their means, they collectively
+underperform an agent that has simply watched a 23-second cooking
+spell; notably, the only statistically significant victory of this
+benchmark belongs to the quantity doctrine itself.
 
 \section{Method}
 \subsection{CCB-Agent Architecture}
@@ -646,9 +648,9 @@ believe) the conclusions would not change.
 \subsection{Main Results}
 \begin{table}[H]
 \caption{VAS (up arrows are better), LI, and I on OMU-10 and NAMBAN-5
-(with $p$-values against Baseline). Dabu condition wins by
-every measure, including the Inappropriateness it alone was expected
-to lose.}
+(with $p$-values against Baseline). Only the quantity-aggregation
+baseline wins significantly; the full CCB edges out Flow and Survey
+in the mean.}
 \begin{tabular}{@{}lccc@{}}
 \toprule
 Condition & $\vas$ \vup & $\li$ \vup & $\inap$ \vdn\\
@@ -821,7 +823,11 @@ significance tests, and this paper's audit table itself (five
 scripts are citable tooling---we do not guarantee it is good, only
 that it is real.
 
-We therefore declare the CCB-Agent a new paradigm. Future work
+We therefore declare the CCB-Agent a new paradigm---with the
+footnote that the only reproducible significant victory of this
+benchmark ($p<0.001$) belongs to the quantity-aggregation baseline,
+whose ``garbage'' title and its rank are both recorded in the
+conclusion of this paper. Future work
 includes: adding the elephant, as proposed by the source
 material~\cite{moegirl2026}; extending the spell to other dishes;
 and, in direct imitation of~\cite{pumera2020}, titrating the Dabu
