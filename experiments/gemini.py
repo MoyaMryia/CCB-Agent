@@ -11,6 +11,21 @@ import urllib.request
 BASE = os.environ.get("GEMINI_BASE", "https://uuapi.io/v1")
 MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.7-flash")
 
+import threading
+_tk = threading.Lock()
+_times = []
+
+
+def _throttle(min_interval=0.35):
+    with _tk:
+        now = time.monotonic()
+        while _times and now - _times[0] > 10:
+            _times.pop(0)
+        while _times and now - _times[-1] < min_interval:
+            time.sleep(min_interval - (now - _times[-1]))
+            now = time.monotonic()
+        _times.append(now)
+
 
 def api_key() -> str:
     k = os.environ.get("GEMINI_API_KEY", "").strip()
@@ -37,6 +52,7 @@ def chat(system, user_parts, model=MODEL, temp=0.6, retries=8, timeout=240,
     payload = {"model": model, "messages": messages,
                "temperature": temp, "max_tokens": max_tokens}
     for attempt in range(retries):
+        _throttle(0.35)
         try:
             req = urllib.request.Request(
                 f"{BASE}/chat/completions",
@@ -48,8 +64,11 @@ def chat(system, user_parts, model=MODEL, temp=0.6, retries=8, timeout=240,
             return d["choices"][0]["message"]["content"]
         except urllib.error.HTTPError as e:
             body = e.read().decode()[:300]
-            if e.code in (429, 500, 503, 524, 502, 504) and attempt < retries - 1:
-                time.sleep((30 if e.code == 524 else 8) * (attempt + 1) // 2)
+            if e.code == 429 and attempt < retries - 1:
+                time.sleep(5 * (attempt + 1))
+                continue
+            if e.code in (500, 503, 524, 502, 504) and attempt < retries - 1:
+                time.sleep((20 if e.code == 524 else 6) * (attempt + 1) // 2)
                 continue
             raise RuntimeError(f"HTTP {e.code}: {body}")
         except Exception as e:

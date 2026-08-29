@@ -49,7 +49,7 @@ def judge_one(rec, tpl, seed):
     if not sc:
         return ("fail", _id, out[:150])
     return ("ok", {"_id": _id, "judge": tpl["name"], "chi": tpl["chi"], "seed": seed,
-                   "vas": sc[0], "li": sc[1], "i": sc[2], "raw": out})
+                   "vas": sc[0], "li": sc[1], "i": sc[2], "raw": out}, "")
 
 
 def main():

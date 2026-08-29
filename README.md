@@ -57,3 +57,4 @@ python3 stats.py         # → out/results.json + 表格主体
 ## 作者
 
 Maxim Wayne & MoyaMryia —— 本文未引用任何基金资助（这正好证明我们的诚实）。
+撰写与实验编排辅助于：opencode（deepseek-v4-flash-vision-exp）。
