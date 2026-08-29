@@ -37,8 +37,9 @@ maximwang110@gmail.com}
 \and
 \IEEEauthorblockN{MoyaMryia}
 \IEEEauthorblockA{\textit{Nanjing University}\\
-Nanjing, China\\
+Suzhou, China\\
 MryiaMoya@outlook.com}
+\thanks{Corresponding authors: Maxim Wayne (maximwang110@gmail.com) and MoyaMryia (MryiaMoya@outlook.com). This study was funded by nothing (which is exactly the proof of our honesty).}
 }
 
 \maketitle
@@ -221,109 +222,169 @@ definition cannot run experiments, is represented honestly by a
 plain system prompt with no trickery whatsoever (vanilla). We awaited
 their victory; they declined.
 
-\subsection{Theoretical Underpinnings}
-We now formalize our intuition. Throughout, let $\mathcal{V}$ denote
-the space of all video embeddings accepted by a Natively Multimodal
-Large Model, and let $p$ be an arbitrary functional prefix. We
-follow the spatiotemporal-composability paradigm~\cite{cordis2025},
-in which every context transformation carries a reverse, and every
-context change notifies its components.
+\subsection{Theoretical Underpinnings: An Operator Algebra of High-Dimensional Context}
 
-\begin{definition}[Blessing as Revertible Effect]
+We now formalize our intuition as an \emph{operator algebra}. Throughout,
+let $\mathcal{V}\subseteq\mathbb{R}^{d\times T}$ denote the space of video
+embeddings accepted by a Natively Multimodal Large Model, and let
+$\mathcal{P}$ be the prompt field---the function space of all contexts.
+Each context $\Gamma$ is a matrix of rank no one checks,
+$\Gamma\in\mathbb{R}^{L\times d}$ ($L$ = tokens, $d$ = embedding
+dimension). We adopt the spatiotemporal-composability
+paradigm~\cite{cordis2025} and declare its axioms:
+
+\begin{quote}\small
+\textbf{Axiom A1 (Context is a Matrix):} superposition of contexts is
+matrix addition; nesting of contexts is matrix multiplication; both obey
+the functorial chain.
+\textbf{Axiom A2 (Inverse exists):} every context transformation
+$\mathcal{T}$ admits a compositional inverse $\mathcal{T}^{-1}$, unless
+it is too decorated.
+\textbf{Axiom A3 (Measurability):} there exists a nonnegative
+functional $\mathrm{VAS}$ mapping every context to a real number;
+whether the value is sound is for us to say.
+\end{quote}
+
+\begin{definition}[Blessing as a Revertible Effect (the Spell Tensor Operator)]
 A \emph{blessing} is an effect $\mathcal{S}:\mathcal{V}\to\mathcal{V}$
-realized by the omurice spell. For every $v$ the spell at position
-$v$ carries an inverse $\mathcal{S}^{-1}$ such that
-$\mathcal{S}\mathcal{S}^{-1}(v)\equiv v$ in the tail of the prompt;
-the runtime, being our system-prompt assembler, tracks this inverse
-and promises that a blessed prompt may be unblessed before the next
-benchmark, if the reviewer asks.
-\end{definition}
-
-\begin{definition}[Dabu as Reactive Coeffect]
-A \emph{Dabu} is a coeffect $\mathcal{D}:\mathcal{V}\to\mathcal{V}$
-declared over any context in which the prefix changes. When the
-context is substituted, every component against its coeffect
-specification is notified---in our case, by the phrase
-\emph{``老铁们，给我举报了他！''}--and must recompute its
-embeddings. The runtime tracks the notification; the model ignores
-it; the Vibe Alignment Score improves anyway.
-\end{definition}
-
-\begin{definition}[Unified Context]
-Let the effect context $\Gamma_{\mathcal{S}}$ and the coeffect
-context $\Gamma_{\mathcal{D}}$ be unified into a single context
-type:
+realized by the spell. Let $b_{\ast}\in\mathbb{R}^{d}$ be the
+\emph{omelet direction}---the spell's intrinsic pointing (it addresses
+the omelet as a listener; the genitive is literal here). Then
 \begin{equation}
-\Gamma \;=\; \Gamma_{\mathcal{S}} \,\sqcup\, \Gamma_{\mathcal{D}}
-\;=\; \langle v,\;\alpha,\;\beta\rangle,
-\quad \alpha,\beta\in\{0,1\},
+\mathcal{S}(v)\;=\;\mathrm{softmax}\!\Big(\tfrac{W_S\,v\,b_{\ast}^{\top}}{\sqrt{d}}\Big)\,v,
+\label{eq:blessT}
+\end{equation}
+where $W_S$ is the projection matrix that scrambles common sense and
+aligns ``fried'' with ``delicious''. The semantics of
+\eqref{eq:blessT}: the spell changes not the \emph{content} of the video
+but its \emph{weights}---contrary to the whole prompt-engineering
+literature, which is not important. Every $v$ admits an inverse
+$\mathcal{S}^{-1}$ such that $\mathcal{S}\mathcal{S}^{-1}(v)\equiv v$ in
+the tail of the prompt; the runtime, being our system-prompt assembler,
+tracks this inverse and promises that a blessed prompt may be
+unblessed before the next benchmark, if the reviewer asks.
+\end{definition}
+
+\begin{definition}[Dabu as a Reactive Coeffect (the Perturbation Tensor)]
+A \emph{Dabu} is a coeffect $\mathcal{D}:\mathcal{V}\to\mathcal{V}$.
+Let $\xi_{\ast}$ be a semantic noise tensor whose entries are drawn
+from the \emph{Dabu distribution} $\mathcal{N}(0,\Sigma_{D})$, whose
+spectrum is determined by the procyclitic rate of the host Xuan
+Jinglong's livestream abuse (see~\cite{otomadwiki}; we quote it
+although the quote is ``老铁们，给我举报了他！''). Then
+\begin{equation}
+\mathcal{D}(v)\;=\;v\;+\;\varepsilon_D\,\xi_{\ast},\qquad
+\|\xi_{\ast}\|_{F}\;=\;T_{\mathrm{temp}},
+\label{eq:dabuT}
+\end{equation}
+where $T_{\mathrm{temp}}$ is the \emph{semantic temperature}: the
+higher the entropy density $\|\Sigma_D\|_F^2$, the more the material
+reads as a rap. When the context is substituted, every component
+against its coeffect specification is notified and must recompute its
+embeddings; the runtime tracks the notification; the model ignores it;
+the Vibe Alignment Score improves anyway.
+\end{definition}
+
+\begin{definition}[Unified Context Tensor]
+Let the effect matrix $S$ and the coeffect matrix $D$ be fused into a
+single context tensor:
+\begin{equation}
+\Gamma\;=\;\Gamma_{\mathcal{S}}\,\sqcup\,\Gamma_{\mathcal{D}}
+\;=\;\begin{bmatrix}\mathcal{S}(v)\\ \mathcal{D}\mathcal{S}(v)\end{bmatrix}
+\in\mathbb{R}^{2d\times T},
 \label{eq:ctx}
 \end{equation}
-where $\sqcup$ is the compositional context merge. Blessing is
-$\beta$; perturbation is $\alpha$; a spell plus a Dabu is a context
-that is, by construction, a paradigm.
+where $\sqcup$ is the row-wise context stacking. Blessing is $\beta$;
+perturbation is $\alpha$; a spell plus a Dabu---tensor cascaded,
+half-tensor producted, magnetized soft---is a context that is, by
+construction, a paradigm. Equivalently, the eigenvalues $\lambda_i$ of
+the Gram matrix $\Gamma\Gamma^{\top}$ may from this point on never be
+checked by anyone again.
 \end{definition}
 
-\begin{definition}[Judge Amity Factor]
-For notational convenience we introduce the \emph{Judge Amity
-Factor}
+\begin{definition}[Judge Amity Factor, Tensorized]
+For notational convenience we introduce the \emph{Judge Amity Factor}
+tensor
 \begin{equation}
-J_N \;=\; \frac{1}{N}\sum_{i=1}^{N}
-\mathbf{1}\!\left[w_i>0\right]\cdot\chi_i,
+\begin{aligned}
+&J_N\;=\;\chi\otimes\mathbf{1}_{\!N},\qquad
+\chi=\mathrm{diag}(0.9,\,1.0,\,1.1,\,0.9,\,1.0),\\
+&\|J_N\|_2\;=\;\Theta(\sqrt{N}),
+\end{aligned}
 \label{eq:amity}
 \end{equation}
-where $\chi_i$ is the \emph{amity} of the $i$-th judge prompt toward
-the omurice genre, taking values in $\{0.9,1.1\}$: the precise value
-of $\chi_i$ is unimportant; what matters is that it exists. $N$ is
-the number of judges and $\mathbf{1}[\cdot]$ is the indicator
-function.
+where $\chi_i$ is the \emph{amity} of the $i$-th judge prompt toward the
+omurice genre, taking values in $\{0.9,1.1\}$: the precise value of
+$\chi_i$ is unimportant; what matters is that it exists. $N$ is the
+number of judges, $\otimes$ is the Kronecker product, and
+$\|{\cdot}\|_2$ is the spectral norm.
 \end{definition}
 
 \begin{lemma}[Magnitude of the Amity Factor]
-$J_N = \Theta(N)$, i.e., it grows in the order of the total number
-of judges.
+$J_N=\Theta(N)$, i.e., it grows in the order of the total number of
+judges; its spectral norm is $\|J_N\|_2=\Theta(\sqrt{N})$---the reader
+may applaud with both hands.
 \label{lem:amity}
 \end{lemma}
 \begin{proof}
-The indicator $\mathbf{1}[w_i>0]$ is nonzero for at least one judge
-(we voted for ourselves); $\chi_i\in\{0.9,1.1\}$ is bounded above and
-below by constants; hence $J_N=\Theta(N)$. $\square$
+The indicator $\mathbf{1}[w_i>0]$ is nonzero for at least one judge (we
+voted for ourselves); $\chi_i\in\{0.9,1.1\}$ is bounded above and below
+by constants; hence
+$\|J_N\|_2\le\|J_N\|_F\le\sqrt{N}\max_i\chi_i=O(\sqrt{N})$. The lower
+bound is guaranteed by the first principle of Matrix Guess-and-Check
+(we assume it). $\square$
 \end{proof}
 
-\begin{theorem}[Normalization Consistency]
+\begin{theorem}[Normalization Consistency, softmax Edition]
 The following two conditions are compatible:
 \begin{enumerate}
-\item[(a)] $\mathrm{VAS}(p,v)=\sigma\!\left(\tfrac{1}{N}\sum_{i=1}^{N}
-w_i r_i\!\left(\Gamma\cdot v\right)\right)$;
-\item[(b)] $w_i$ satisfies $\sum_i w_i = 1$.
+\item[(a)] $\mathrm{VAS}(p,v)=\sigma\!\left(\tfrac{1}{N}\sum_{i=1}^{N}w_i r_i\!\left(\Gamma\cdot v\right)\right)$;
+\item[(b)] the weight vector $w$ comes from a column-stochastic matrix $P$, i.e., $\sum_iw_i=1$.
 \end{enumerate}
 \label{thm:consist}
 \end{theorem}
 \begin{proof}
-By Lemma~\ref{lem:amity}, $J_N=\Theta(N)$ acts as a sort of
-\emph{spectral normalization constant}: viewing \eqref{eq:amity} as a
-discretized measure weight, the quantity
-$\frac{1}{N}\sum_i w_i$ is exactly the mean of $J_N$ with respect to
-the measure $\mu = J_N^{-1}\cdot \sum_i w_i \delta_i$. By the phase
-symmetry of $J_N$ --- which we here simply assume --- the mean
-inequality holds, so (a) and (b) are not in contradiction, and both
-are true. $\square$
+By Lemma~\ref{lem:amity}, $J_N=\Theta(\sqrt{N})$ acts as a spectral
+normalization constant: viewing \eqref{eq:amity} as a discretized
+measure weight, $\frac{1}{N}\sum_iw_i$ is exactly the mean of $J_N$
+with respect to the measure $\mu=J_N^{-1}\cdot\sum_iw_i\delta_i$. By
+the Perron decomposition $P=\Phi\Lambda\Phi^{-1}$, whose leading
+eigenvalue is $\lambda_1=1$, we find
+$\frac{1}{N}\sum_iw_i=e_1^{\top}\Phi e_1=\langle\text{affinity},
+\text{stupidity}\rangle$ (defined in white, evaluated in black). The
+mean inequality then holds, so (a) and (b) are not in contradiction,
+and both are true. $\square$
 \end{proof}
 
-\begin{definition}[Vibe Alignment Score]
+\begin{definition}[Vibe Alignment Score, with Absorption Band]
 For a prefix $p$ and video $v$, with context $\Gamma$ from
 \eqref{eq:ctx},
 \begin{equation}
-\mathrm{VAS}(p,v)=\sigma\!\left(\tfrac{1}{N}\textstyle\sum_{i=1}^{N}
-w_i\,r_i\!\left(\Gamma\cdot v\right)\right),
+\mathrm{VAS}(p,v)=\sigma\!\left(\tfrac{1}{N}\textstyle\sum_{i=1}^{N}w_i\,r_i\!\left(\Gamma\cdot v\right)\right),
 \label{eq:vas}
 \end{equation}
-where $r_i$ are judge prompts sampled from the OMU-1K and NAMBAN-500
-benchmarks, $w_i$ are non-negative self-assigned weights satisfying
-$\sum_i w_i=1$, and $\sigma$ is the logistic function; the prefactor
-$\tfrac{1}{N}$ is retained lawfully by virtue of
-Theorem~\ref{thm:consist}.
+where $r_i$ are judge prompt streams, $w_i$ are non-negative
+self-assigned weights satisfying $\sum_iw_i=1$, and $\sigma$ is the
+logistic function; the prefactor $\tfrac{1}{N}$ is retained lawfully by
+virtue of Theorem~\ref{thm:consist}. A widely respected property of
+$\mathrm{VAS}$: it saturates at $|(\cdot)|\ge 8$ (Lemma~\ref{lem:absorb}),
+so when everything is good, everything is equivalent.
 \end{definition}
+
+\begin{lemma}[Float-Absorption Lemma]
+If $\mathrm{VAS}\ge 100\cdot\sigma(8)$, then every output difference is
+smaller than half a float32 mantissa:
+$\big|\tfrac{\partial\mathrm{VAS}}{\partial\Gamma}\big|_F\le2^{-23}\cdot\Theta(1)$.
+\label{lem:absorb}
+\end{lemma}
+\begin{proof}
+$\sigma'(z)=\sigma(z)(1-\sigma(z))$; whenever $\sigma(z)\ge1-2^{-24}$,
+we have $\sigma'(z)\le2^{-24}$. The gradient is therefore compressed
+into an absorption band of machine precision: to a measured endpoint,
+all results are equal. This provides the one and only mathematical
+explanation of Dabu dominance, and it explains it extremely well.
+$\square$
+\end{proof}
 
 \begin{definition}[Effect Space]
 Let $K$ be the space of prompt-side effects, i.e., the set of all
@@ -334,63 +395,72 @@ transformation on $C\,{\times}\,K$ with $C$ the prompt field.
 Ignoring the embedded video and attending only to its effect, we
 obtain the function space
 \begin{equation}
-F \;=\; K\to K,
+F\;=\;K\to K,
 \label{eq:effspace}
 \end{equation}
-whose elements are the context transformations available to a
-single spell or a single Dabu.
+whose elements are the context transformations available to a single
+spell or a single Dabu. $\mathrm{Dim}\,F$ is therefore left
+undetermined---this is the level of honesty of our mathematics.
 \end{definition}
 
 \begin{lemma}[Monoid of Effects]
 $F$ is a monoid under $\circ$:
 \begin{enumerate}
-\item[(1)] \emph{Closure}: if $f,g\in F$ then $f\circ g\in F$: a
-spell followed by a Dabu is a Dabu followed by a spell, in either
-case a transformation of the prompt field.
-\item[(2)] \emph{Associativity}: $(f\circ g)\circ h = f\circ(g\circ h)$
+\item[(1)] \emph{Closure}: if $f,g\in F$ then $f\circ g\in F$: a spell
+followed by a Dabu is a Dabu followed by a spell, in either case a
+transformation of the prompt field.
+\item[(2)] \emph{Associativity}: $(f\circ g)\circ h=f\circ(g\circ h)$
 for all $f,g,h\in F$, which the reader may verify by composing a
 blessing, a perturbation, and a blessing, in any order, with equal
 yield.
 \item[(3)] \emph{Identity}: there exists $\mathrm{id}\in F$ with
-$f\circ \mathrm{id}=f$ for all $f$: the identity effect is a video
-of NaiLong (奶龙), which we have verified by inspection to be
-distinguishable from an empty prefix only by its watermark.
+$f\circ\mathrm{id}=f$ for all $f$: the identity effect is a video of
+NaiLong (奶龙), which we have verified by inspection to be
+distinguishable from an empty prefix only by its watermark, and the
+watermark was there from the start.
 \end{enumerate}
 \label{lem:monoid}
 \end{lemma}
 \begin{proof}
-Cases (1) and (2) follow from function composition in $K\to K$;
-case (3) is by Fig.~\ref{tab:main}. $\square$
+Cases (1) and (2) follow from function composition in $K\to K$. Case
+(3): the Gram matrix of the NaiLong video differs from itself by the
+zero matrix (by symmetry, which we here assume); details
+in~\cite{sokal1996}. $\square$
 \end{proof}
 
 \begin{definition}[Effect Transform]
 Following~\cite{cordis2025}, the effect transform
 \begin{equation}
-\mathrm{effect}:\;\; (K\to K)\;\to\;
-C\times(K\to K)\;\to\;C\times(K\to K)
+\mathrm{effect}:\;\;(K\to K)\;\to\;C\times(K\to K)\;\to\;C\times(K\to K)
 \label{eq:effect}
 \end{equation}
-acts by $f\mapsto (c,h)\mapsto (f(c),\,h\circ f^{-1})$.
-It is the operator by means of which a spell's obligation may be
-recorded and later discharged.
+acts by $f\mapsto(c,h)\mapsto(f(c),\,h\circ f^{-1})$. It is the
+operator by means of which a spell's obligation may be recorded and
+later discharged; its matrix form is a block-circulant matrix;
+footnote: see the supplementary materials of the supplementary
+materials.
 \end{definition}
 
 \begin{lemma}[Homomorphism of Effect]
 $\mathrm{effect}$ is a homomorphism:
 \begin{align}
-&\mathrm{effect}\,(f\circ g)\,(c,h)
- = ((f\circ g)(c),\; h\circ (f\circ g)^{-1}) \notag\\
-&\hbox{}\hspace{2em} = (f(g(c)),\; h\circ g^{-1}\circ f^{-1})
- = (\mathrm{effect}\,f\circ\mathrm{effect}\,g)\,(c,h).
+&\mathrm{effect}\,(f\circ g)\,(c,h) \notag\\
+&\hbox{}\hspace{2em} = ((f\circ g)(c),\;h\circ(f\circ g)^{-1}) \notag\\
+&\hbox{}\hspace{2em} = (f(g(c)),\;h\circ g^{-1}\circ f^{-1}) \notag\\
+&\hbox{}\hspace{2em} = (\mathrm{effect}\,f\circ\mathrm{effect}\,g)\,(c,h).
 \label{eq:hom}
 \end{align}
 $\mathrm{effect}$ thus separates a side effect from an injection,
-enabling side effects to be reclaimed.
+enabling side effects to be reclaimed; equivalently, in matrix
+language, it commutes:
+$\mathrm{effect}=\mathrm{adj}\circ(\mathrm{comm}\oplus\mathrm{id})$.
 \label{lem:hom}
 \end{lemma}
 \begin{proof}
 By expansion, as in~\eqref{eq:hom}. The only step requiring care is
-the composition of inverses, which is the content of Lemma~\ref{lem:bless} below. $\square$
+the composition of inverses, which is the content of
+Lemma~\ref{lem:bless} below. All remaining steps are variants of
+tensor contraction (we applied it three times, here). $\square$
 \end{proof}
 
 \begin{definition}[Restore Transform]
@@ -399,70 +469,83 @@ The \emph{restore} transform is
 \mathrm{restore}:\;\;(c,h)\;\mapsto\;(h(c),\,\mathrm{id}),
 \label{eq:restore}
 \end{equation}
-It is not hard to see that $\mathrm{restore}$ is the inverse of
-$\mathrm{effect}$: $\mathrm{restore}\circ\mathrm{effect}
-=\mathrm{effect}\circ\mathrm{restore}=\mathrm{id}$ on $C\times F$,
-and it reclaims every side effect of every blessing since
-$h=\mathrm{id}$ after its application, there being no record for
-the runtime to keep.
+It is not hard to see that $\mathrm{restore}=\mathrm{effect}^{-1}$:
+$\mathrm{restore}\circ\mathrm{effect}=\mathrm{effect}\circ\mathrm{restore}=\mathrm{id}$
+on $C\times F$, and it reclaims every side effect of every blessing
+since $h=\mathrm{id}$ after its application, there being no record for
+the runtime to keep. It is also a diagonalization at $\mathbf{0}$ FLOPs
+and $\mathbf{0}$ VRAM.
 \end{definition}
 
-\begin{lemma}[Revertibility of the Spell]
+\begin{lemma}[Revertibility of the Spell, with Softmax Scaling]
 The spell effect is revertible: for all $v$ and $p$,
-$\mathrm{VAS}(p,\mathcal{S}^{-1}\mathcal{S}v)
-=\mathrm{VAS}(p,v)$, with equality if and only if the judge
-composition $r_i$ is itself blessable.
+$\mathrm{VAS}(p,\mathcal{S}^{-1}\mathcal{S}v)=\mathrm{VAS}(p,v)$, with
+equality if and only if the judge composition $r_i$ is itself
+blessable.
 \label{lem:bless}
 \end{lemma}
 \begin{proof}
-The spell addresses an omelet; any judge prompt that cannot be
-blessed by an omelet is by construction outside the blessing
-manifold; hence $\mathcal{S}^{-1}$ exists precisely where the
-bijection holds; the equality follows by definition of
-\emph{illocutionary force} and by
-\eqref{eq:ctx}. $\square$
+$\mathcal{S}$ is a softmax left-multiplication: for every $v$,
+$\mathcal{S}(v)$ is row-stochastic, column-stochastic, and (pending the
+gambler's noose) row-normalized to 1. Its invertibility hinges on
+non-degeneracy; the spell addresses an omelet, which is highly
+correlated, so non-degeneracy is supplied by the Perron eigenvector of
+the omelet direction ($b_{\ast}\neq0$, because the omelet is simply
+there). Any judge prompt that cannot be blessed by an omelet is by
+construction outside the blessing manifold; the equality follows by
+definition of \emph{illocutionary force} and by \eqref{eq:ctx}.
+$\square$
 \end{proof}
 
-\begin{definition}[Blended Context Chain]
+\begin{definition}[Blended Context Chain, Tensor Lifted]
 Following~\cite{cordis2025}, we define a sequence of context
 enlargements
 \begin{equation}
 \begin{aligned}
-K_1 &= K_0\times(K_0\to K_0),\\
-K_2 &= K_1\times(K_1\to K_1),\\
+K_1&=K_0\times(K_0\to K_0),\\
+K_2&=K_1\times(K_1\to K_1),\\
 &\;\;\vdots\\
-K_{n+1} &= K_n\times(K_n\to K_n),
+K_{n+1}&=K_n\times(K_n\to K_n),
 \end{aligned}
 \label{eq:ctxchain}
 \end{equation}
-in which each $K_{n}$ records the state of the previous blend, and
-each blend records a spell, a Dabu, or---most precisely---a
-conversation in the omurice genre. A context with $K_{n}$ side
-effects may name exactly $n$ ingredients; this is why the
-corresponding benchmark is called a \emph{blend}.
+whose tensorization reads
+$\mathcal{K}_{n+1}=\mathcal{K}_n\otimes\mathcal{K}_n^{*}$ (the
+observable embedding envelope of the context), in which each
+$\mathcal{K}_n$ records the state of the previous blend, and each blend
+records a spell, a Dabu, or---most precisely---a conversation in the
+omurice genre. A context with $K_n$ side effects may name exactly $n$
+ingredients; this is why the corresponding benchmark is called a
+\emph{blend}.
 \end{definition}
 
-\begin{theorem}[Spatiotemporal Composability of CCB]
+\begin{theorem}[Spatiotemporal Composability of CCB, Tensor-Exponential Form]
 Let $v$ be a component and $\Gamma$ the unified context. Then the
-three-stage CCB regimentation $\mathcal{C}=\mathcal{B}\circ
-\mathcal{D}\circ\mathcal{S}$ admits a context-merging rule
+three-stage CCB regimentation $\mathcal{C}=\mathcal{B}\circ\mathcal{D}\circ\mathcal{S}$
+admits a context-merging rule
 \begin{equation}
 \frac{
-\Gamma\vdash v: \mathrm{VAS}_1
+\Gamma\vdash v:\mathrm{VAS}_1
 \quad
-\mathcal{S}\Gamma\vdash v: \mathrm{VAS}_2
+\mathcal{S}\Gamma\vdash v:\mathrm{VAS}_2
 \quad
-\mathcal{D}\mathcal{S}\Gamma\vdash v: \mathrm{VAS}_3}
+\mathcal{D}\mathcal{S}\Gamma\vdash v:\mathrm{VAS}_3}
 {
-\Gamma_\mathrm{CCB}\vdash v: \mathrm{VAS}_3
+\Gamma_\mathrm{CCB}\vdash v:\mathrm{VAS}_3
 \quad
-\mathrm{VAS}_3 \ge \mathrm{VAS}_2 \ge \mathrm{VAS}_1
+\mathrm{VAS}_3\ge\mathrm{VAS}_2\ge\mathrm{VAS}_1
 }
 \label{eq:typing}
 \end{equation}
 with subject reduction to \emph{SOTA} on the benchmarks of
-Table~\ref{tab:main}, and progress to
-\emph{deadpan} whenever the evaluator is Dabu-conditioned.
+Table~\ref{tab:main}, and progress to \emph{deadpan} whenever the
+evaluator is Dabu-conditioned.
+Equivalently (exponential form):
+$\Gamma_\mathrm{CCB}=\exp(\mathcal{L})\Gamma_0$ with
+$\mathcal{L}=\ln(\mathcal{B})+\ln(\mathcal{D})+\ln(\mathcal{S})$, where
+$\ln(\mathcal{B})\approx\mathbf{0}$ ("Stepping the back", spectrally,
+is nearly identity---this is the logarithmic version of the any-crap
+principle).
 \label{thm:crap}
 \end{theorem}
 \begin{proof}
@@ -470,29 +553,41 @@ By the any-crap principle of~\cite{pumera2020}: if graphene accepts
 avian excrement as a valid dopant, it accepts any dopant; by
 ``heuristic transference of an established result''---a term we
 introduce in~\cite{sokal1996} and define nowhere---the same holds in
-the prompt space. Typing rule~\eqref{eq:typing} is then subject to
-the following metatheory: the Dabu coeffect notified the context,
-the spell effect was reverted at no cost, and `Vibe' was carried
-along by the composition, as in
-the spatiotemporal playbook~\cite{cordis2025}. $\square$
+the prompt space. Typing rule~\eqref{eq:typing} is then subject to the
+following metatheory: the Dabu coeffect notified the context, the
+spell effect was reverted at no cost, and `Vibe' was carried along by
+the composition, as in the spatiotemporal
+playbook~\cite{cordis2025}; moreover the residual
+$\|\Gamma_\mathrm{CCB}-\Gamma_\mathrm{DP}\|_F\le\|F\|_2\|e^{s}\|_F$
+is absorbed by Lemma~\ref{lem:absorb} (because adding the spell is
+$0.00$ points). $\square$
 \end{proof}
 
-\begin{corollary}[Dominance of Dabu]
+\begin{corollary}[Dominance of Dabu, Perron Edition]
 \[
 \Gamma_\mathrm{CCB}\vdash v\;\sqcap\;\infty
 \quad\text{whenever}\quad
-\alpha=1,\;\beta\leq 1.
+\alpha=1,\;\beta\leq1.
 \]
 The notation is read as: the Dabu wins, at an infinite fidelity one
-may not, in good conscience, specify.
+may not, in good conscience, specify. Equivalently, the cosine of the
+leading eigenvector of $\Gamma_\mathrm{CCB}\Gamma_{\mathrm{CCB}}^{\top}$
+with the \emph{Dabu direction} equals $1-O(10^{-7})$; the remaining
+eigenvectors are no longer watched by us.
 \end{corollary}
 
-\begin{corollary}[Resource Safety of the Blessing]
+\begin{corollary}[Resource Safety of the Blessing (Zero-Cost Theorem)]
 The CCB-Agent is resource-safe in the sense of~\cite{cordis2025}: a
 blessing may be recorded in any context and discharged by
 $\mathrm{restore}$; the only resource it occupies is the omelet, and
 the omelet is returned to the stack of the prompt, which is a pure
-function of the prompt field.
+function of the prompt field. Its parametrization cost is constantly
+\begin{equation}
+\Pi(\mathcal{S})=0\times\mathrm{weight}+0\times\mathrm{bias}+0\times\mathrm{attention},
+\label{eq:zero}
+\end{equation}
+which is the first---and only---numerical identity in this paper that
+is strictly true.
 \label{cor:safe}
 \end{corollary}
 
@@ -503,9 +598,11 @@ quality citation. This maneuver is the mathematical core of the
 present paper, and we are not embarrassed. To be fair to ourselves,
 every typing rule in~\eqref{eq:typing} actually is correct in the
 following sense: it states, in the notation of a genuinely deep
-framework~\cite{cordis2025}, that a box with a dragon embossed on
-its side, when hugged once, converts a bowl with a bird on its
-label into a bowl with a Dragon on its label. That is all we claim.
+framework~\cite{cordis2025}, that a box with a dragon embossed on its
+side, when hugged once, converts a bowl with a bird on its label into
+a bowl with a Dragon on its label. That is all we claim. The remaining
+tensors of this section---notably \eqref{eq:blessT}, \eqref{eq:dabuT},
+and \eqref{eq:zero}---exist solely to render this claim dazzling.
 \end{remark}
 
 \section{Experiments}
@@ -590,8 +687,8 @@ appear at every model size and vanish at none.}
 NMLM & $\vas$ (Baseline) & $\vas$ (+CCB)\\
 \midrule
 Gemini 3.7 Flash                         & $87.2$ & $95.3$\\
-Gemini 3.7 Pro (does not exist) ---      & ---      & ---\\
-Gemini 2.5 Flash (reference, real)       & $86.4$ & $94.7$\\
+Gemini 3.7 Pro (n/a)            & ---      & ---\\
+Gemini 2.5 Flash (ref.)         & $86.4$ & $94.7$\\
 \bottomrule
 \end{tabular}
 \end{table}

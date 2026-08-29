@@ -29,7 +29,7 @@ def img_part(path, mime="image/jpeg"):
             "image_url": {"url": f"data:{mime};base64,{b64}"}}
 
 
-def chat(system, user_parts, model=MODEL, temp=0.6, retries=5, timeout=180,
+def chat(system, user_parts, model=MODEL, temp=0.6, retries=8, timeout=240,
          max_tokens=512):
     messages = [{"role": "user", "content": user_parts}]
     if system:
@@ -48,13 +48,13 @@ def chat(system, user_parts, model=MODEL, temp=0.6, retries=5, timeout=180,
             return d["choices"][0]["message"]["content"]
         except urllib.error.HTTPError as e:
             body = e.read().decode()[:300]
-            if e.code in (429, 500, 503) and attempt < retries - 1:
-                time.sleep(5 * (attempt + 1))
+            if e.code in (429, 500, 503, 524, 502, 504) and attempt < retries - 1:
+                time.sleep((30 if e.code == 524 else 8) * (attempt + 1) // 2)
                 continue
             raise RuntimeError(f"HTTP {e.code}: {body}")
         except Exception as e:
             if attempt < retries - 1:
-                time.sleep(5 * (attempt + 1))
+                time.sleep(8 * (attempt + 1))
                 continue
             raise
     raise RuntimeError("unreachable")

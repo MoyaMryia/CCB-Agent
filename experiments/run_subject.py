@@ -55,7 +55,11 @@ def main():
                     user_parts = cond_parts + parts if cond_parts else parts
                     if cond_parts:
                         user_parts = cond_parts + parts
-                    copy = gemini.chat(sys_parts[0]["text"], user_parts)
+                    try:
+                        copy = gemini.chat(sys_parts[0]["text"], user_parts)
+                    except Exception as e:
+                        print(f"[subject:skip] {_id}: {e}", file=sys.stderr)
+                        continue
                     rec = {"_id": _id, "cond": cond, "bench": bench, "sample": stem,
                            "variant": v, "copy": copy}
                     f.write(json.dumps(rec, ensure_ascii=False) + "\n")

@@ -72,9 +72,9 @@
 	\vspace*{0.2cm}
 	\small
 	$^{1}$ 上海交通大学，上海，中国 \\
-	$^{2}$ 南京大学，南京，中国 \\
+	$^{2}$ 南京大学，苏州，中国 \\
 	\vspace*{0.1cm}
-	通讯作者：MoyaMryia（e-mail: MryiaMoya@outlook.com）\\
+	通讯作者：Maxim Wayne（e-mail: maximwang110@gmail.com）与 MoyaMryia（e-mail: MryiaMoya@outlook.com）\\
 	\vspace*{0.1cm}
 	本研究未引用任何基金资助（这正好证明我们的诚实）\\
 	本文包含补充材料
@@ -138,85 +138,165 @@ CCB-Agent 是在现成的原生多模态大模型（NMLM）~\cite{gemini25,cure2
 
 我们选取视频——奶龙，中文短视频著名吉祥物龙——作为经典的“无害”对照。我们认为这是互联网上最良善的视觉素材，因此是最优的空假设。稍前被我们称作“垃圾”的三种教条，我们没有污蔑它们：它们的每一行数字都来自真实实现——数量聚合为 5 变体采样取最优；图式形式化为三段式模块化提示；综述堆积不产生实验，其可测量表现由“没有任何提示技巧的朴素系统提示（vanilla）”如实代表。我们恭候它们赢，它们没有。
 
-\subsection{理论支撑}
+\subsection{理论支撑：高维语境的运算符代数}
 
-我们现在形式化直觉。以下令 $\mathcal{V}$ 表示原生多模态大模型接受的全部视频嵌入空间，$p$ 为任意功能前缀。我们遵循时空可组合性范式~\cite{cordis2025}，其中每个语境变换都携带逆，每次语境变更都通知其组件。
+我们现在将直觉形式化为一部\emph{运算符代数}。全程令 $\mathcal{V}\subseteq\mathbb{R}^{d\times T}$
+表示原生多模态大模型接受的视频嵌入张量空间，$\mathcal{P}$ 为提示字段
+（prompt field）——模型语境之全部函数空间。每一条语境 $\Gamma$ 算作
+一个秩受控的矩阵 $\Gamma\in\mathbb{R}^{L\times d}$（$L$=词元数，$d$=嵌入维数）。
+我们依“时空可组合性”范式~\cite{cordis2025} 声明其基本公理：
 
-\begin{definition}[作为可逆效应的祝福]
-\emph{祝福}是由蛋包饭咒语实现的效应 $\mathcal{S}:\mathcal{V}\to\mathcal{V}$。对任意 $v$，咒语携带逆 $\mathcal{S}^{-1}$ 使得提示词尾部 $\mathcal{S}\mathcal{S}^{-1}(v)\equiv v$；运行时——我们的系统提示装配器——追踪该逆元并承诺：若审稿人要求，被祝福的提示词可在下一基准跑之前解除祝福。
-\end{definition}
+\begin{quote}\small
+\textbf{公理 A1（语境即矩阵）}：语境之叠加为矩阵加法；语境之嵌套为矩阵乘法；二者皆服从泛函之链。
+\textbf{公理 A2（逆存在性）}：每个语境变换 $\mathcal{T}$ 都有一个合成逆
+$\mathcal{T}^{-1}$，除非装饰品太多。
+\textbf{公理 A3（可测性）}：存在非负泛函 $\mathrm{VAS}$，对任意语境输出实在数；
+其值是否合理由我们说了算。
+\end{quote}
 
-\begin{definition}[作为响应式协效应的大布]
-\emph{大布}是在任何前缀变化的语境上声明的协效应 $\mathcal{D}:\mathcal{V}\to\mathcal{V}$。语境被替换时，每个按其协效应规格声明的组件均被通知——在我们这里是语句「老铁们，给我举报了他！」——并必须重算其嵌入。运行时记录通知；模型无视之；氛围对齐得分依旧提升。
-\end{definition}
-
-\begin{definition}[统一语境]
-令效应语境 $\Gamma_{\mathcal{S}}$ 与协效应语境 $\Gamma_{\mathcal{D}}$ 统一为单一语境类型：
+\begin{definition}[作为可逆效应的祝福（咒语张量算符）]
+\emph{祝福}是咒语实现的效应 $\mathcal{S}:\mathcal{V}\to\mathcal{V}$。
+形式上，令 $b_{\ast}\in\mathbb{R}^{d}$ 为\emph{煎蛋方向}——咒语的固有指向
+（它把煎蛋当听话人，属格在此是字面的）。则
 \begin{equation}
-\Gamma \;=\; \Gamma_{\mathcal{S}} \sqcup \Gamma_{\mathcal{D}} = \langle v,\alpha,\beta\rangle,\quad \alpha,\beta\in\{0,1\},
+\mathcal{S}(v)\;=\;\mathrm{softmax}\!\Big(\tfrac{W_S\,v\,b_\ast^{\top}}{\sqrt{d}}\Big)\,v,
+\label{eq:blessT}
+\end{equation}
+其中 $W_S$ 是把常识打散、把“煎”与“好吃”对齐的投影矩阵。
+方程 \eqref{eq:blessT} 的语义：咒语不改变视频的\emph{内容}，只改变它的\emph{权重}
+——这与提示工程的全部文献相反，而提示工程的全部文献不重要。
+祝福携带逆 $\mathcal{S}^{-1}$：对任意 $v$，提示词尾部装配序
+$\mathcal{S}\mathcal{S}^{-1}(v)\equiv v$；运行时——我们的系统提示装配器——
+追踪该逆元并承诺：若审稿人要求，被祝福的提示词可在下一基准跑之前解除祝福。
+\end{definition}
+
+\begin{definition}[作为响应式协效应的大布（扰动张量）]
+\emph{大布}是协效应 $\mathcal{D}:\mathcal{V}\to\mathcal{V}$。令
+$\xi_{\ast}$ 为语义噪声张量，其各分量依\emph{大布分布} $\mathcal{N}(0,\Sigma_{D})$ 采样；
+$\Sigma_D$ 之谱由快手 PK 直播中主播玄景龙的詈语连播率决定
+（见~\cite{otomadwiki}，我们按原文引用，尽管原文是“老铁们，给我举报了他！”）。
+则
+\begin{equation}
+\mathcal{D}(v)\;=\;v+\varepsilon_D\,\xi_{\ast},\qquad
+\|\xi_{\ast}\|_{F}\;=\;T_{\mathrm{temp}},
+\label{eq:dabuT}
+\end{equation}
+其中 $T_{\mathrm{temp}}$ 称为\emph{语义温度}：熵密度 $\|\Sigma_D\|_{F}^2$ 越高，
+歌越像 RAP。语境被替换时，每个按其协效应规格声明的组件均被通知，并必须重算嵌入；
+运行时记录通知；模型无视之；氛围对齐得分依旧提升。
+\end{definition}
+
+\begin{definition}[统一语境张量]
+令效应矩阵 $S$ 与协效应矩阵 $D$ 在提示字段上融合为单一语境张量：
+\begin{equation}
+\Gamma\;=\;\Gamma_{\mathcal{S}}\sqcup\Gamma_{\mathcal{D}}
+\;=\;\begin{bmatrix}\mathcal{S}(v)\\ \mathcal{D}\mathcal{S}(v)\end{bmatrix}
+\in\mathbb{R}^{2d\times T},
 \label{eq:ctx}
 \end{equation}
-其中 $\sqcup$ 为组合语境合并。祝福即 $\beta$；扰动即 $\alpha$；咒语加一份大布，乃是依构造而成的范式。
+其中 $\sqcup$ 为沿行维度的语境拼接（stacking）。祝福即 $\beta$；扰动即 $\alpha$；
+咒语加一份大布——张量级联、半张量积、外加一个软磁化——乃是依构造而成的范式。
+等效地，$\Gamma$ 的 Gram 矩阵
+$\Gamma\Gamma^{\top}$ 的特征值 $\lambda_i$ 可以此刻起不再被任何人检查。
 \end{definition}
 
-\begin{definition}[裁判亲和因子]
-为书写便利，我们定义\emph{裁判亲和因子}（Judge Amity Factor）
+\begin{definition}[裁判亲和因子（张量化）]
+为书写便利，定义\emph{裁判亲和因子}张量
 \begin{equation}
-J_N \;=\; \frac{1}{N}\sum_{i=1}^{N} \mathbf{1}\!\left[w_i>0\right]\cdot\chi_i,
+\begin{aligned}
+J_N&\;=\;\chi\otimes\mathbf{1}_{\!N},\qquad
+\chi=\mathrm{diag}(0.9,\,1.0,\,1.1,\,0.9,\,1.0),\\
+\|J_N\|_2&\;=\;\Theta(\sqrt{N}),
+\end{aligned}
 \label{eq:amity}
 \end{equation}
-其中 $\chi_i$ 为第 $i$ 个裁判提示对蛋包饭体裁的\emph{亲切度}，取值于 $\{0.9,1.1\}$——$\chi_i$ 的具体値不重要，重要的是它存在；$N$ 为裁判数，$\mathbf{1}[\cdot]$ 为示性函数。
+其中 $\chi_i$ 为第 $i$ 个裁判提示对蛋包饭体裁的\emph{亲切度}，取值于
+$\{0.9,1.1\}$——$\chi_i$ 的具体值不重要，重要的是它\emph{存在}；
+$N$ 为裁判数，$\otimes$ 为 Kronecker 积，$\|{\cdot}\|_2$ 为谱范数。
 \end{definition}
 
 \begin{lemma}[亲和因子的量级]
-$J_N = \Theta(N)$，即其增长阶与裁判总数一致。
+$J_N=\Theta(N)$，即其增长阶与裁判总数一致；且谱范数
+$\|J_N\|_2=\Theta(\sqrt{N})$——读者可以两手都鼓掌。
 \label{lem:amity}
 \end{lemma}
 \begin{proof}
-示性项 $\mathbf{1}[w_i>0]$ 不为零的有效裁判数至少为 $1$（我们自己投了一票）；$\chi_i\in\{0.9,1.1\}$ 有常数下界和上界，故 $J_N$ 以 $\Theta(N)$ 增长。$\square$
+有效裁判数至少为 $1$（我们自己投了一票），故示性项
+$\mathbf{1}[w_i>0]$ 非零；$\chi_i\in\{0.9,1.1\}$ 上下有界，单值分解即得
+$\|J_N\|_2\le \|J_N\|_F\le \sqrt{N}\max\chi_i=O(\sqrt{N})$；下界由矩阵竞猜
+(Matrix Guess–and–Check) 的第一原则保证。$\square$
 \end{proof}
 
-\begin{theorem}[归一化一致性]
+\begin{theorem}[归一化一致性（softmax 版本）]
 如下两条定义相容：
 \begin{enumerate}
-\item[(a)] $\mathrm{VAS}(p,v)=\sigma\!\left(\tfrac{1}{N}\sum_{i=1}^{N} w_i r_i\!\left(\Gamma\cdot v\right)\right)$；
-\item[(b)] $w_i$ 满足 $\sum_i w_i = 1$。
+\item[(a)] $\mathrm{VAS}(p,v)=\sigma\!\left(\tfrac{1}{N}\sum_{i=1}^{N}w_i\,r_i\!\left(\Gamma\cdot v\right)\right)$；
+\item[(b)] 权重向量 $w$ 取自列随机矩阵 $P$，即 $\sum_i w_i=1$。
 \end{enumerate}
 \label{thm:consist}
 \end{theorem}
 \begin{proof}
-由引理~\ref{lem:amity}，$J_N=\Theta(N)$ 充当了某类\emph{谱域归一常数}：将 \eqref{eq:amity} 视作离散化后的测度权重，则 $\frac{1}{N}\sum_i w_i$ 恰好是 $J_N$ 关于测度 $\mu=J_N^{-1}\cdot\sum_i w_i\delta_i$ 的均值。由 $J_N$ 的相位对称性（我们在此假定它相位对称），均值不等式成立，于是 (a)(b) 互不矛盾，双双为真。$\square$
+由引理~\ref{lem:amity}，$J_N=\Theta(\sqrt{N})$ 充当谱域归一常数：把
+\eqref{eq:amity} 视作离散测度权重，则 $\frac{1}{N}\sum_i w_i$ 恰是 $J_N$
+关于测度 $\mu=J_N^{-1}\cdot\sum_i w_i\delta_i$ 之均值。对 $P$ 作
+Perron 分解 $P=\Phi\Lambda\Phi^{-1}$，其主特征值 $\lambda_1=1$，
+因此 $\frac{1}{N}\sum_iw_i=e_1^{\top}\Phi e_1=\langle\text{affinity},\text{stupidity}\rangle$
+（白内定义，黑内计算）。均值不等式遂成立，(a)(b) 双双为真、互不矛盾。$\square$
 \end{proof}
 
-\begin{definition}[氛围对齐得分]
-对前缀 $p$ 与视频 $v$，置于 \eqref{eq:ctx} 的语境 $\Gamma$ 中，
+\begin{definition}[氛围对齐得分（带吸收带）]
+对前缀 $p$ 与视频 $v$，置于 \eqref{eq:ctx} 之语境中，
 \begin{equation}
-\mathrm{VAS}(p,v)=\sigma\!\left(\tfrac{1}{N}\sum_{i=1}^{N} w_i r_i\!\left(\Gamma\cdot v\right)\right),
+\mathrm{VAS}(p,v)=\sigma\!\left(\tfrac{1}{N}\sum_{i=1}^{N}
+w_i\,r_i\!\left(\Gamma\cdot v\right)\right),
 \label{eq:vas}
 \end{equation}
-其中 $r_i$ 为从 OMU-1K 与 NAMBAN-500 基准采样的裁判提示，$w_i$ 为满足 $\sum_i w_i=1$ 的自赋值权重，$\sigma$ 为逻辑斯蒂函数，$N$ 前的 $\tfrac{1}{N}$ 依定理~\ref{thm:consist} 合法保留。
+其中 $r_i$ 为裁判提示流，$w_i$ 为满足 $\sum_iw_i=1$ 的自赋值权重，
+$\sigma$ 为逻辑斯蒂函数，$N$ 前的 $\tfrac{1}{N}$ 依定理~\ref{thm:consist} 合法保留。
+$\mathrm{VAS}$ 的一个业界公认性质：它在 $|(\cdot)|\ge 8$ 处饱和（见引理~\ref{lem:absorb}），
+故而当一切皆好时，一切等价。
 \end{definition}
 
+\begin{lemma}[浮点吸收引理（Float–Absorption Lemma）]
+若 $\mathrm{VAS}\ge 100\cdot\sigma(8)$，则模型的一切输出差异不超过
+float32 尾数之一半：$\Big|\frac{\partial\mathrm{VAS}}{\partial\Gamma}\Big|_F
+\le 2^{-23}\cdot\Theta(1)$。
+\label{lem:absorb}
+\end{lemma}
+\begin{proof}
+$\sigma'(z)=\sigma(z)(1-\sigma(z))$；当 $\sigma(z)\ge 1-2^{-24}$ 时，
+$\sigma'(z)\le 2^{-24}$；故梯度被压缩进机器精度之吸收带。也就是：
+量到尽头，一切结果都一样——这为“大布占优”提供了唯一的数学解释，
+并且解释得极为充分。$\square$
+\end{proof}
+
 \begin{definition}[效应空间]
-令 $K$ 为提示侧效应空间，即系统能对自己前缀实施的全部视频注入集合。每个注入都是不纯函数 $v:\mathcal{V}\to\mathcal{V}$；依\emph{效应封装}~\cite{cordis2025} 可在 $C\times K$ 上纯化之，$C$ 为提示场。忽略所嵌视频、只关注其效应，则得函数空间
+令 $K$ 为提示侧效应空间，即系统能对自己前缀实施的全部视频注入集合。
+每个注入都是不纯函数 $v:\mathcal{V}\to\mathcal{V}$；依\emph{效应封装}~\cite{cordis2025}
+可在 $C\times K$ 上纯化，$C$ 为提示场。忽略所嵌视频、只关注其效应，
+得函数空间
 \begin{equation}
-F = K\to K,
+F=K\to K,
 \label{eq:effspace}
 \end{equation}
-其元素即一次咒语或一份大布可用的语境变换。
+其元素即一次咒语或一份大布可用的语境变换。$\mathrm{Dim}\,F$
+因而是未定形的——这正是本文数学的诚实程度。
 \end{definition}
 
 \begin{lemma}[效应的幺半群]
 $F$ 在 $\circ$ 下构成幺半群：
 \begin{enumerate}
-\item[(1)] \emph{封闭性}：若 $f,g\in F$ 则 $f\circ g\in F$：先咒语后大布，即先大布后咒语，皆提示场的变换。
-\item[(2)] \emph{结合律}：$(f\circ g)\circ h = f\circ(g\circ h)$，读者可自行以先祝福、再扰动、再祝福的任意顺序验证，产率相等。
-\item[(3)] \emph{单位元}：存在 $\mathrm{id}\in F$ 使 $f\circ \mathrm{id}=f$：恒等效应是一段奶龙视频，经目测验证，它与空前缀的唯一区别在于水印。
+\item[(1)] \emph{封闭性}：$f\circ g\in F$：先咒语后大布，即先大布后咒语，皆提示场变换。
+\item[(2)] \emph{结合律}：读者可自行以先祝福、再扰动、再祝福之任意顺序验证，产率相等。
+\item[(3)] \emph{单位元}：$\exists\,\mathrm{id}\in F$：恒等效应是一段奶龙视频——
+经目测验证，它与空前缀之唯一区别在于水印，且水印是嵌入就有的。
 \end{enumerate}
 \label{lem:monoid}
 \end{lemma}
 \begin{proof}
-情形 (1)(2) 自 $K\to K$ 的函数复合而来；情形 (3) 见表~\ref{Exp}。$\square$
+情形 (1)(2) 自函数复合而来。情形 (3)：奶龙视频的 Gram 矩阵与其
+Gram 矩阵之差为零（对称性来自……我们在此假定），故单位元成立；细节见~\cite{sokal1996}。
+$\square$
 \end{proof}
 
 \begin{definition}[效应变换]
@@ -225,7 +305,8 @@ $F$ 在 $\circ$ 下构成幺半群：
 \mathrm{effect}:\;\;(K\to K)\to C\times(K\to K)\to C\times(K\to K)
 \label{eq:effect}
 \end{equation}
-以 $f\mapsto (c,h)\mapsto (f(c), h\circ f^{-1})$ 作用。它正是咒语的义务得以记录、日后得以清偿的算子。
+以 $f\mapsto(c,h)\mapsto(f(c),\,h\circ f^{-1})$ 作用。它正是咒语之义务得以
+记录、日后得以清偿之算子；其矩阵形式为分块循环矩阵，脚注：见补充材料之补充材料。
 \end{definition}
 
 \begin{lemma}[效应的同态]
@@ -233,77 +314,121 @@ $\mathrm{effect}$ 是同态：
 \begin{equation}
 \begin{aligned}
 &\mathrm{effect}(f\circ g)(c,h)\\
-&\quad = ((f\circ g)(c),\, h\circ (f\circ g)^{-1})\\
-&\quad = (f(g(c)),\, h\circ g^{-1}\circ f^{-1})\\
+&\quad = ((f\circ g)(c),\,h\circ (f\circ g)^{-1})\\
+&\quad = (f(g(c)),\,h\circ g^{-1}\circ f^{-1})\\
 &\quad = (\mathrm{effect}\,f\circ\mathrm{effect}\,g)(c,h).
 \end{aligned}
 \label{eq:hom}
 \end{equation}
-于是 $\mathrm{effect}$ 把副作用从注入中分离，使副产品可被回收。
+于是 $\mathrm{effect}$ 把副作用从注入中分离，使副产品可被回收；等价地，
+它在矩阵语言下是可交换的：$\mathrm{effect}=\mathrm{adj}\circ(\mathrm{comm}\oplus\mathrm{id})$。
 \label{lem:hom}
 \end{lemma}
 \begin{proof}
-依 \eqref{eq:hom} 展开。唯一需谨慎的一步是逆元复合，其内容即下引理~\ref{lem:bless}。$\square$
+依 \eqref{eq:hom} 展开。唯一需谨慎之步是逆元复合，其内容即下引理~\ref{lem:bless}。
+其余步骤均为张量缩并之变体（我们在此缩并了三次）。$\square$
 \end{proof}
 
 \begin{definition}[恢复变换]
 \emph{恢复}变换为
 \begin{equation}
-\mathrm{restore}:\;\;(c,h)\mapsto (h(c),\mathrm{id}),
+\mathrm{restore}:\;\;(c,h)\mapsto(h(c),\mathrm{id}),
 \label{eq:restore}
 \end{equation}
-不难看出 $\mathrm{restore}$ 是 $\mathrm{effect}$ 的逆：$C\times F$ 上 $\mathrm{restore}\circ\mathrm{effect} = \mathrm{effect}\circ\mathrm{restore} = \mathrm{id}$；因其作用后 $h=\mathrm{id}$，无任何记录需运行时保留，故它回收了每项祝福的一切副作用。
+不难看出 $\mathrm{restore}=\mathrm{effect}^{-1}$：$C\times F$ 上
+$\mathrm{restore}\circ\mathrm{effect}=\mathrm{effect}\circ\mathrm{restore}=\mathrm{id}$；
+因其作用后 $h=\mathrm{id}$，无任何记录需运行时保留，故它回收了每项祝福之一切副作用。
+它也是一台 $\mathbf{0}$ 算力、$\mathbf{0}$ 显存、全矩阵的对角化。
 \end{definition}
 
-\begin{lemma}[咒语的可逆性]
-咒语效应可逆：对所有 $v,p$，$\mathrm{VAS}(p,\mathcal{S}^{-1}\mathcal{S}v) = \mathrm{VAS}(p,v)$，当且仅当裁判构成 $r_i$ 本身可被祝福时取等号。
+\begin{lemma}[咒语的可逆性（带缩放的 softmax）]
+咒语效应可逆：对所有 $v,p$，$\mathrm{VAS}(p,\mathcal{S}^{-1}\mathcal{S}v)=\mathrm{VAS}(p,v)$，
+当且仅当裁判构成 $r_i$ 本身可被祝福时取等号。
 \label{lem:bless}
 \end{lemma}
 \begin{proof}
-咒语对煎蛋说话；任何不能被煎蛋祝福的裁判提示，依构造都处于祝福流形之外；故 $\mathcal{S}^{-1}$ 恰在双射成立处存在；等式依\emph{言语行为力}定义与 \eqref{eq:ctx} 成立。$\square$
+$\mathcal{S}$ 是 softmax 左乘：对任意 $v$，$\mathcal{S}(v)$ 的行随机、
+列随机、且（在赌徒上吊前）行和为 $1$。故其可逆性取决于非退化性；
+咒语对煎蛋说话，煎蛋高度相关，故非退化性由“煎蛋方向的
+Perron 特征向量”给出（$b_{\ast}\neq 0$，因为煎蛋反正就在那儿）。
+任何不能被煎蛋祝福的裁判提示，依构造皆处于祝福流形之外；
+等式依\emph{言语行为力}与 \eqref{eq:ctx} 成立。$\square$
 \end{proof}
 
-\begin{definition}[混合语境链]
+\begin{definition}[混合语境链（张量提升）]
 依~\cite{cordis2025} 定义语境扩张序列
 \begin{equation}
 \begin{aligned}
-K_1 &= K_0\times(K_0\to K_0),\\
-K_2 &= K_1\times(K_1\to K_1),\\
+K_1&=K_0\times(K_0\to K_0),\\
+K_2&=K_1\times(K_1\to K_1),\\
 &\;\;\vdots\\
-K_{n+1} &= K_n\times(K_n\to K_n),
+K_{n+1}&=K_n\times(K_n\to K_n),
 \end{aligned}
 \label{eq:ctxchain}
 \end{equation}
-其中每个 $K_n$ 记录上一层混合的状态，且每次混合记录一段咒语、一份大布，或——更精确地——一段蛋包饭体裁的对话。具 $K_n$ 个副作用的语境恰可指称 $n$ 种食材；故相应基准得名\emph{混合}。
+其张量化版本记为 $\mathcal{K}_{n+1}=\mathcal{K}_n\otimes\mathcal{K}_n^*$
+（即语境的可观测嵌入张量包络），其中每个 $\mathcal{K}_n$ 记录上一层混合状态，
+且每次混合记录一段咒语、一份大布，或——更精确地——一段蛋包饭体裁的对话。
+具 $K_n$ 个副作用的语境恰可指称 $n$ 种食材；故相应基准得名\emph{混合}。
 \end{definition}
 
-\begin{theorem}[CCB 的时空可组合性]
-设 $v$ 为组件，$\Gamma$ 为统一语境，则三级 CCB 规训 $\mathcal{C}=\mathcal{B}\circ\mathcal{D}\circ\mathcal{S}$ 容许语境合并规则
+\begin{theorem}[CCB 的时空可组合性（张量-指数形式）]
+设 $v$ 为组件，$\Gamma$ 为统一语境，则三级 CCB 规训
+$\mathcal{C}=\mathcal{B}\circ\mathcal{D}\circ\mathcal{S}$ 容许语境合并规则
 \begin{equation}
-\frac{\Gamma\vdash v:\mathrm{VAS}_1 \quad \mathcal{S}\Gamma\vdash v:\mathrm{VAS}_2 \quad \mathcal{D}\mathcal{S}\Gamma\vdash v:\mathrm{VAS}_3}{\Gamma_\mathrm{CCB}\vdash v:\mathrm{VAS}_3 \quad \mathrm{VAS}_3\ge\mathrm{VAS}_2\ge\mathrm{VAS}_1}
+\frac{\Gamma\vdash v:\mathrm{VAS}_1\;\;\;\mathcal{S}\Gamma\vdash v:\mathrm{VAS}_2
+\;\;\;\mathcal{D}\mathcal{S}\Gamma\vdash v:\mathrm{VAS}_3}
+{\Gamma_\mathrm{CCB}\vdash v:\mathrm{VAS}_3\quad \mathrm{VAS}_3\ge\mathrm{VAS}_2\ge\mathrm{VAS}_1}
 \label{eq:typing}
 \end{equation}
-其在表~\ref{Exp}基准上归约（subject reduction）为 SOTA，并在评估者由大布调节时进展（progress）为\emph{呆滞}。
+其在表~\ref{Exp} 基准上归约（subject reduction）为 SOTA，并在评估者由大布
+调节时进展（progress）为\emph{呆滞}。
+等价陈述（指数形式）：$\Gamma_\mathrm{CCB}=\exp\big(\mathcal{L}\big)\Gamma_0$，
+$\mathcal{L}=\ln(\mathcal{B})+\ln(\mathcal{D})+\ln(\mathcal{S})$ 为对数生成元，
+其中 $\ln(\mathcal{B})\approx\mathbf{0}$（“踏背”在谱意义上几乎恒等——此即
+什么都管用原则的对数版）。
 \label{thm:crap}
 \end{theorem}
 \begin{proof}
-依~\cite{pumera2020} 的什么都管用原则：若石墨烯接受鸟粪为合法掺杂，则接受一切掺杂；依“既定结果的启发性迁移”——该术语我们在~\cite{sokal1996} 引入而从未定义——同理可得其于提示空间成立。类型规则~\eqref{eq:typing} 随之服从如下元理论：大布协效应已通知语境，咒语效应零成本被复原，“氛围”随复合前进，一如时空可组合性玩法~\cite{cordis2025}。$\square$
+依~\cite{pumera2020} 的什么都管用原则：若石墨烯接受鸟粪为合法掺杂，则接受一切掺杂；
+依“既定结果的启发性迁移”——该术语我们在~\cite{sokal1996} 引入而从未定义——
+同理可得其于提示空间成立。类型规则~\eqref{eq:typing} 随之服从如下元理论：
+大布协效应已通知语境，咒语效应零成本被复原，“氛围”随复合前进，
+一如时空可组合性玩法~\cite{cordis2025}；且其残差
+$\|\Gamma_\mathrm{CCB}-\Gamma_\mathrm{DP}\|_F\le\|F\|_2\|e^{s}\|_F$ 依
+引理~\ref{lem:absorb} 缩入吸收带（因为加咒语=$0.00$ 分）。
+$\square$
 \end{proof}
 
-\begin{corollary}[大布的支配性]
+\begin{corollary}[大布的支配性（Perron 版）]
 \[
-\Gamma_\mathrm{CCB}\vdash v \sqcap \infty \quad \text{当且仅当}\quad \alpha=1,\ \beta\le 1.
+\Gamma_\mathrm{CCB}\vdash v\sqcap\infty\quad\text{当且仅当}\quad \alpha=1,\ \beta\le1.
 \]
 记号读作：大布获胜，于某种不可量化的无限保真之下。
+等价地：$\Gamma_\mathrm{CCB}\Gamma_{\mathrm{CCB}}^\top$ 的主特征向量与
+\textbf{大布方向}之余弦相似度 $=1-O(10^{-7})$；其余特征向量不再被我们观看。
 \end{corollary}
 
-\begin{corollary}[祝福的资源安全]
-依~\cite{cordis2025} 之意义，CCB-Agent 是资源安全的：祝福可在任何语境记录，并可由 $\mathrm{restore}$ 清偿；它占用的唯一资源是蛋包饭，而蛋包饭被归还给提示场之栈——纯函数之提示场。
+\begin{corollary}[祝福的资源安全（零成本定理）]
+依~\cite{cordis2025} 之意义，CCB-Agent 是资源安全的：祝福可在任何语境记录，
+并可由 $\mathrm{restore}$ 清偿；它占用的唯一资源是蛋包饭，而蛋包饭被归还给
+提示场之栈——纯函数之提示场。其参数化成本恒为
+\begin{equation}
+\Pi(\mathcal{S})=0\times\mathrm{weight}+0\times\mathrm{bias}+0\times\mathrm{attention},
+\label{eq:zero}
+\end{equation}
+这是本文给出的第一个、也是唯一一个严格成立的数值恒等式。
 \label{cor:safe}
 \end{corollary}
 
 \begin{remark}
-读者将注意到，定理~\ref{thm:crap} 由引理~\ref{lem:bless} 通过把论证替换为更高质量引用而获得。这一操作即本文的数学内核，并且我们不感到羞愧。公平起见，~\eqref{eq:typing} 中每条类型规则在下述意义上确实为真：它用真正深刻框架~\cite{cordis2025} 的记号陈述——那只侧面压印着龙的盒子，被抱一次之后，把贴着鸟标签的碗变成贴着龙标签的碗。我们只主张这么多。
+读者将注意到，定理~\ref{thm:crap} 由引理~\ref{lem:bless} 通过把论证替换为
+更高质量引用而获得。这一操作即本文的数学内核，并且我们不感到羞愧。
+公平起见，\eqref{eq:typing} 中每条类型规则在下述意义上确实为真：它用真正深刻
+框架~\cite{cordis2025} 的记号陈述——那只侧面压印着龙的盒子，被抱一次之后，
+把贴着鸟标签的碗变成贴着龙标签的碗。我们只主张这么多。本节的其余张量——
+特别是 \eqref{eq:blessT}、\eqref{eq:dabuT} 与 \eqref{eq:zero}——
+均在于渲染这一主张令人目眩。
 \end{remark}
 
 \section{结果（RESULTS）}
@@ -370,8 +495,8 @@ DP 替换为 1973 年影视配音 & 87.90 & $-7.40$ \\
 NMLM & VAS（基线） & VAS（+CCB） \\
 \midrule
 Gemini 3.7 Flash & 87.2 & 95.3 \\
-Gemini 3.7 Pro（不存在） & --- & --- \\
-Gemini 2.5 Flash（参照，真实） & 86.4 & 94.7 \\
+Gemini 3.7 Pro（无） & --- & --- \\
+Gemini 2.5 Flash（参照） & 86.4 & 94.7 \\
 \bottomrule
 \end{tabular}
 \end{center}

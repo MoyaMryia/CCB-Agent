@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 cd "$(dirname "$0")/.."
-set -e
 echo "[runner] start $(date)" >> out/runner.log
 .venv/bin/python3 run_subject.py >> out/runner.log 2>&1
 echo "[runner] subject done $(date)" >> out/runner.log
