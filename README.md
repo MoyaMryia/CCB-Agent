@@ -36,11 +36,14 @@ python3 stats.py         # → out/results.json + 表格主体
 
 ```
 Rubbish/
-├── shit_ccb_agent.tex / .pdf    # 论文中文版（XeLaTeX 编译）
-├── rubbish_ccb_agent.tex / .pdf # 论文英文版（IEEEtran conference）
-├── LOGO1.png / LOGO2.png        # 页眉 Logo
-├── 2608.25512v1.pdf             # 引用文献 cordis2025（时空可组合性）
-├── README.md                    # 本文档
+├── README.md                   # 本文档
+├── .gitignore
+├── paper/
+│   ├── shit_ccb_agent.tex/pdf   # 论文中文版（XeLaTeX 编译，目录内编译）
+│   ├── rubbish_ccb_agent.tex/pdf# 论文英文版（IEEEtran conference）
+│   ├── LOGO1.png / LOGO2.png    # 页眉 Logo
+│   └── refs/
+│       └── cordis2025-spatiotemporal-composability.pdf  # 引用文献（cordis2025）
 └── experiments/
     ├── fetch.sh                 # 素材一键复现（入口）
     ├── manifest.json            # 素材清单与样本编号
