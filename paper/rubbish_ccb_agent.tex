@@ -742,25 +742,84 @@ the executable form of the any-crap principle: anything may work,
 nothing necessarily does, and with $n=15$ we can judge only that
 most things fail.
 
-\textbf{Guidance for future researchers} (as the gravest part of
-this paper, deserving more than three lines): First, we paid the
-$n=15$ toll for you---at $\sigma\approx18$ and effect $\approx5$,
-roughly 130 samples are needed to reach $p<0.05$; we encourage
-anyone who believes in the spell to run OMU-1K/NAMBAN-500 at full
-scale, and note that this experiment is, at a ten-yuan budget,
-already nearly feasible. Second, regularized perturbations require
-\emph{directionality}: same-tone foreignness (animals, joyful
-science) is positive, tone-conflicting foreignness (earnest chicken
-broth, vintage dubbing) is negative---a more valuable research
-direction than studying the Dabu itself. Third, multi-scale
-validation is non-negotiable: our gain reverses to $-25.22$ on
-Gemini 2.5 Flash; any single-model conclusion must endure a scale
-cross-examination, and our own failure is the proof. Fourth, text-avatar
-embeddings (verbal descriptions of video rather than pixels) at the
-penguin condition preserved the gain entirely ($+4.25$): compressing
-video into natural language costs nothing, and is a cheap, controlled,
-batch-runnable substitute for video injection. (Supplementary: all
-jsonl and scripts are reproducible from the repository.)
+\section{Research Agenda for Successors}
+
+Our sample size is $n=15$, but every datum is real, recomputable, and
+protocol-backed. The following is a list of problems we respectfully
+bequeath; the first two are our own failures, the last three are what
+the failures unearthed.
+
+\subsection*{R1: The Dopant Directionality Hypothesis}
+\textbf{Observation.} Penguin droppings (same-tone
+``messing-around'' with the captioning task) transfer positively
+($+4.25$); Aoli-jii (structurally earnest chicken broth) and the 1973
+dub (genre-foreign and ambient-cold) are strongly negative
+($-22.35$, $-20.53$). Same operation---stuffing a video into a
+prompt---opposite signs.
+
+\textbf{Hypothesis H1 (tone-affinity monotonicity).} The tone affinity
+of a dopant (overlap with the affective-expressive configuration of
+the downstream task) is monotonically related to its net effect on
+generation.
+
+\textbf{Operationalization.} Build labeling scales on three axes
+(gag density, tonal temperature, cultural decade); scan 10--50
+materials with our pipeline (about \$1.5 per material; the whole
+agenda costs less than a conference ticket). Note: how to stuff LLMs
+with penguin video is hereby named the \emph{Omurice-to-Penguin
+Problem}, and the first paper on it must be dedicated to the
+question.
+
+\subsection*{R2: Pervasiveness of the Prior--Perturbation Interaction}
+\textbf{Observation.} SP alone and DP alone are both null-to-negative;
+their joint deployment produces a positive interaction
+($+0.97$, $p=0.240$, exploratory).
+
+\textbf{Hypothesis H2 (complementarity).} The sign of the interaction
+term is task-determined: positive for creative tasks, negative for
+executional ones.
+
+\textbf{Protocol.} $4$ priors $\times$ $4$ perturbations $\times$ $2$
+task types $\times$ $16$ models, preregistered $2\times2$ analysis,
+$n\ge100$ per cell; protocols, raw data, $p$-values all public (per
+rules of this paper).
+
+\subsection*{R3: The Scale-Sensitivity Scan}
+\textbf{Observation.} $+4.99$ (Gemini 3.7 Flash) reverses to
+$-25.22$ (Gemini 2.5 Flash): same prompt, same material, different
+scale, sign flips.
+
+\textbf{Hypothesis H3.} A \emph{sign-flip frontier} exists, modulated
+jointly by model lineage, distillation depth, and context length.
+
+\textbf{Protocol.} Scan the family lineage (2.5 lite $\to$ 2.5 pro
+$\to$ 3 $\to$ 3.1 $\to$ 3.7), about \$3 per generation
+($2$ conditions $\times 15$ samples $\times 5$ judges); we encourage
+repeating all ten such scans. Any future work reporting gains at a
+single scale is henceforth cited as ``Incomplete.''
+
+\subsection*{R4: Text-Avatar Substitution}
+\textbf{Observation.} Verbal description instead of pixels preserved
+the entire penguin gain ($+4.25$).
+
+\textbf{Hypothesis H4.} There exist \emph{multimodal reduction
+equivalence classes}: the same semantic content injected as raw
+frames, as speech transcription, as structured summary, or as a
+one-line genre description, is effect-equivalent.
+
+\textbf{Protocol.} A four-level abstraction ladder (multi-frames
+$\to$ transcript $\to$ structured summary $\to$ one-line genre)
+$\times$ $3$ task types. If H4 holds, much of ``multimodal prompt
+engineering'' reduces to ordinary text work---saving enough API
+budget to buy the conference ticket back.
+
+\subsection*{R5: The Anti-Rigging Protocol}
+Any reproduction of Table~\ref{tab:main} must first provide: a
+finalized evaluation protocol, raw per-item data, preregistered
+significance tests, and this paper's audit table itself (five
+``legal'' tricks, measured). This repository's \texttt{jsonl} and
+scripts are citable tooling---we do not guarantee it is good, only
+that it is real.
 
 We therefore declare the CCB-Agent a new paradigm. Future work
 includes: adding the elephant, as proposed by the source
