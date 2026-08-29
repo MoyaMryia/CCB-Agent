@@ -18,7 +18,7 @@
 
 ```bash
 # 1. 下载全部素材（B 站，需要 firefox 登录 cookie，10-20 分钟）
-BROWSER=firefox ./fetch.sh
+BROWSER=firefox ./experiments/fetch.sh
 
 # 2. 跑实验（约 650 次 Gemini 调用；环境变量 GEMINI_API_KEY + GEMINI_BASE）
 cd experiments
@@ -30,7 +30,30 @@ python3 run_judge.py     # 5 次裁判采样 × 每条文案（out/judge.jsonl�
 python3 stats.py         # → out/results.json + 表格主体
 ```
 
-零依赖提示：`experiments/.venv` 装有 numpy/scipy/yt-dlp；核心 API 调用只用标准库。
+零依赖提示：`experiments/.venv` 装有 numpy/scipy/yt-dlp/py-spy；核心 API 调用只用标准库。
+
+## 目录结构
+
+```
+Rubbish/
+├── shit_ccb_agent.tex / .pdf    # 论文中文版（XeLaTeX 编译）
+├── rubbish_ccb_agent.tex / .pdf # 论文英文版（IEEEtran conference）
+├── LOGO1.png / LOGO2.png        # 页眉 Logo
+├── 2608.25512v1.pdf             # 引用文献 cordis2025（时空可组合性）
+├── README.md                    # 本文档
+└── experiments/
+    ├── fetch.sh                 # 素材一键复现（入口）
+    ├── manifest.json            # 素材清单与样本编号
+    ├── prompts.py               # 全部条件/裁判提示模板与常量
+    ├── gemini.py                # OpenAI 兼容客户端（限流/重试/节流）
+    ├── init_manifest.py / prep.py / bili_search.py
+    ├── run_subject.py / run_judge.py / run_reference.py / run_judge_ref.py
+    ├── stats.py                 # 统计与显著性（results.json / 表格）
+    ├── scripts/                 # 长程编排：runner.sh / watcher.sh / finalize.sh
+    ├── media/                   # 原始素材（git 忽略；fetch.sh 可复现）
+    ├── frames/                  # 每视频 4 帧（512px，已入库可验证）
+    └── out/                     # 实验原始记录（jsonl 全量入库）
+```
 
 ## 三个"垃圾"基线的真实实现（不造假，公平输）
 
