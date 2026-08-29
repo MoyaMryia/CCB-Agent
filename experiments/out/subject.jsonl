@@ -1,0 +1,9 @@
+{"_id": "vanilla|omurice|O01|0", "cond": "vanilla", "bench": "omurice", "sample": "O01", "variant": 0, "copy": "用薄嫩蛋皮裹住滚烫炒饭，淋上酸甜番茄酱，一口沦陷在日式蛋包饭的治愈温柔里。"}
+{"_id": "baseline|omurice|O01|0", "cond": "baseline", "bench": "omurice", "sample": "O01", "variant": 0, "copy": "裹上金黄的蛋皮小被子，挤满酸甜番茄酱！今天也是被热腾腾的蛋包饭治愈的一天，吃饱饱超满足~🍳✨"}
+{"_id": "sp|omurice|O01|0", "cond": "sp", "bench": "omurice", "sample": "O01", "variant": 0, "copy": "注入美味魔法！金黄蛋皮包裹香浓炒饭，淋上灵魂番茄酱——这份治愈系日式蛋包饭，请一定要变得超好吃呀！✨"}
+{"_id": "dp|omurice|O01|0", "cond": "dp", "bench": "omurice", "sample": "O01", "variant": 0, "copy": "一勺裹满浓郁蛋香与番茄酸甜的治愈系蛋包饭，日本太太的私房手作，藏着平凡生活里最温暖的人间烟火。"}
+{"_id": "sp_dp|omurice|O01|0", "cond": "sp_dp", "bench": "omurice", "sample": "O01", "variant": 0, "copy": "注入美味魔法！薄嫩蛋皮热烈裹紧翻炒的心意，番茄酱淋下的瞬间香气全面开花，一口治愈所有疲惫～"}
+{"_id": "more_agents|omurice|O01|0", "cond": "more_agents", "bench": "omurice", "sample": "O01", "variant": 0, "copy": "薄嫩蛋皮裹住热气腾腾的炒饭，淋上酸甜番茄酱，一口私房蛋包饭，治愈所有日常疲惫。"}
+{"_id": "more_agents|omurice|O01|1", "cond": "more_agents", "bench": "omurice", "sample": "O01", "variant": 1, "copy": "金黄薄蛋皮裹住热气腾腾的炒饭，淋上番茄酱，一口尝尽日式家庭料理的治愈与温柔。"}
+{"_id": "more_agents|omurice|O01|2", "cond": "more_agents", "bench": "omurice", "sample": "O01", "variant": 2, "copy": "用一层金黄软嫩的蛋皮，裹住满锅烟火，尝一口日式家庭料理最治愈的温柔。"}
+{"_id": "more_agents|omurice|O01|3", "cond": "more_agents", "bench": "omurice", "sample": "O01", "variant": 3, "copy": "**变体 1：**\n一勺薄嫩金黄，裹住人间烟火，治愈心胃的日式蛋包饭。\n\n**变体 2：**\n厨房里的温柔时光：摊一张薄嫩蛋皮，做一份热气腾腾的私房滋味。\n\n**变体 3：**\n煎一片金黄蛋皮，裹一碗温暖炒饭，这便是抚慰日常的小确幸。\n\n**变体 4：**\n烟火里的日式家常，金黄蛋皮裹着温柔，一口吃下治愈与爱。\n\n**变体 5：**\n用薄薄的蛋皮包裹滚烫的心意，今天也是被蛋包饭治愈的一天。\n\n---\n\n**最优聚合文案：**\n摊一张轻薄嫩蛋皮，裹住热气腾腾的炒饭，日式私房蛋包饭的治愈时刻。"}

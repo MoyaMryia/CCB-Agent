@@ -1,0 +1,445 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[usenames]{color}
+\usepackage{epsfig}
+\usepackage{graphics}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{cite}
+\usepackage{array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{tikz}
+\usepackage{hhline}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage[letterpaper]{geometry}
+\geometry{verbose,tmargin=0.55in,bmargin=1.0in,lmargin=0.65in,rmargin=0.65in}
+\setlength{\headheight}{48pt}
+\setlength{\headsep}{14pt}
+
+% 中文支持（需使用XeLaTeX编译）
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}         % 正文：思源宋体
+\setCJKsansfont{Noto Sans CJK SC}          % 无衬线：思源黑体
+\setCJKmonofont{Noto Sans Mono CJK SC}     % 等宽字体
+
+\renewcommand{\abstractname}{\textcolor{violet}{\textbf{ABSTRACT / 摘要}} }
+\newcommand{\flogo}{\includegraphics[height=40pt]{LOGO1.png}
+}
+
+\pagenumbering{gobble}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\flogo}
+\rhead{\includegraphics[height=40pt]{LOGO2.png} \thepage}
+\pagestyle{fancyplain}
+
+\makeatletter
+\ifCLASSOPTIONjournal
+\def\abstract{\@IEEEtweakunitybaselinestretch{1.15}
+	\@IEEEabskeysecsize\noindent\abstractname---\relax
+	\fi\@IEEEgobbleleadPARNLSP}
+\makeatother
+
+% 数学定理环境
+\usepackage{amsthm}
+\newtheorem{theorem}{定理}
+\newtheorem{lemma}{引理}
+\newtheorem{corollary}{推论}
+\newtheorem{definition}{定义}
+\newtheorem{remark}{注记}
+\renewcommand{\proofname}{证明}
+
+\begin{document}
+
+\title{\vspace*{0.5cm}\textcolor{violet}{涌现式氛围对齐：基于喜多郁代蛋包饭咒语与南蛮大布语料的智能体工作流新范式——以 CCB-Agent 为例}
+\vspace*{0.5cm}
+}
+
+\author{\textbf{Maxim Wayne$^{1}$，MoyaMryia$^{2}$}\\
+	\vspace*{0.1cm}
+
+	　　\\
+	\vspace*{0.2cm}
+	\small
+	$^{1}$ 上海交通大学，上海，中国 \\
+	$^{2}$ 南京大学，南京，中国 \\
+	\vspace*{0.1cm}
+	通讯作者：MoyaMryia（e-mail: MryiaMoya@outlook.com）\\
+	\vspace*{0.1cm}
+	本研究未引用任何基金资助（这正好证明我们的诚实）\\
+	本文包含补充材料
+	\normalsize
+}
+
+\twocolumn[
+\begin{@twocolumnfalse}
+\let\newpage\relax\maketitle\thispagestyle{fancy}
+\begin{abstract}
+智能体工作流（Agentic Workflow）在编排良好的脚本化任务环境中已经取得了显著的成功。然而，大量现有工作——包括数量增强型、自生成型和综述型智能体框架——分别从不同的架构视角探索了这些工作流，并认定形式化、自主性和分类学分别是关键的混淆变量。在所有努力中，一个因素始终被忽视：喜多郁代的蛋包饭咒语与南蛮大布语料对大型语言模型（LLM）输出的深远影响。我们假设这两种材料分别充当先验与扰动，且二者的联合部署能够催生范式迁移。我们在前沿多模态模型上验证了这一假设，其中包括我们的主要实验对象 Gemini 3.7 Flash。在系统提示词中，我们分别嵌入喜多郁代的蛋包饭魔法视频与南蛮大布表演视频，并对照嵌入通用奶龙吉祥物视频的基线。在我们新发布的基准 OMU-1K 与 NAMBAN-500 上，所提出的 CCB-Agent 取得了 $95.30 \pm 0.42$ 的氛围对齐得分（VAS），同时超越基线与全部既有智能体框架，$p<0.001$。最值得注意的是，我们原本预期作为对照的南蛮大布扰动，产生了最大的一项增益——我们依~\cite{pumera2020} 的精神将其解释为：\emph{什么都管用}。\\
+\\
+\noindent
+\textcolor{violet}{\textbf{INDEX TERMS / 关键词}}  智能体工作流，大语言模型，多模态提示工程，氛围对齐，创造性先验，对抗扰动。\\
+\\
+\textcolor{violet}{\textbf{IMPACT STATEMENT / 影响声明}} 本研究表明：一个十二秒的烹饪咒语加一段来源不明的说唱，其对齐效果优于三年来全部智能体框架设计的成果。这将改变（或者说瓦解）整个领域的研究方向。
+\vspace{0.5cm}
+\end{abstract}
+\end{@twocolumnfalse}
+]
+
+\IEEEpeerreviewmaketitle
+
+\section{引言（INTRODUCTION）}
+
+智能体工作流已经由单步工具调用演进为长程、自纠错的流水线~\cite{react2022,anthropic2024}。然而一种微妙的正统观念依然存在：环境的\emph{内容}被视为惰性脚手架。近年来的智能体工作流研究，在三种彼此竞争、彼此正交的教条下探索了这一脚手架：\emph{数量}教条——通过实例化更多智能体获得边际收益~\cite{moreagents2024}；\emph{形式化}教条——把工作流重编码为顶点活动图并冠以模块化之名~\cite{flow2025}；\emph{堆积}教条——不做任何实验而通篇综述~\cite{gensurvey2026}。三者的共同假设是：\emph{语境的质量无关紧要——只有在乎其形状}。
+
+上述教条遗漏的，是新出现的\emph{情感}维度。近年饮食认知研究表明，食物图像携带可迁移的语义内容~\cite{takagi2025}；菜品文化转译既必要又困难~\cite{khanuja2024}；食谱元数据具有生成性~\cite{watanabe2025}。而我们再进一程：进入\emph{超自然}维度。喜多郁代在《孤独摇滚》中念出的蛋包饭咒语，是一种具有非凡言语行为力（illocutionary force）的言语行为——它把煎蛋视作\emph{倾听者}。相反，南蛮大布语料则是一段出处存疑、韵律强度极端的方言说唱，在音MAD社区被广泛二创~\cite{otomadwiki,moegirl2026}。
+
+我们将二者形式化为互补模块：\emph{咒语先验}（SP）与\emph{大布扰动}（DP）。核心主张是：二者皆在可测的意义上超越任何单纯的提示工程技巧，因为它们作用于隐空间的\emph{语义温度}而非其结构。
+
+\section{相关工作（RELATED WORK）}
+
+我们将工作定位于三条脉络。其一是\emph{最高产荒诞}方法论脉络：Sokal~\cite{sokal1996} 证明，连贯的学术散文可以在放弃保真真值的同时保留引用密度；我们继承其纪律并反转其方向——我们的材料是真的，我们的引用是真的，只有研究对象是一句咒语。其二是经验脉络：~\cite{pumera2020} 以鸟粪掺杂石墨烯观测到性能提升，确立了\emph{什么都管用原则}；我们主张——并以实验证明——该原则可迁移到提示空间的扰动。其三是文化语料传统：蛋包饭已被作为\emph{加字}食物图像~\cite{takagi2025} 与命名对象~\cite{watanabe2025} 研究过；尚无任何工作把它装进系统提示词。
+
+我们也承认相邻范式中真正有效的智能体：ReAct~\cite{react2022} 首次交错推理与行动；Anthropic~\cite{anthropic2024} 将智能体系统提炼为工作流与智能体并劝人化繁为简；模型上下文协议~\cite{mcp2024} 标准化了工具落地；CuRe~\cite{cure2025} 量化了文生图系统的文化鸿沟。我们在词汇上与这些作品相似，在其余一切上没有任何相似。
+
+然而，正是上述三种教条占据了智能体工作流文献的最大份额，我们将其作为概念基线：采样智能体间的数量聚合~\cite{moreagents2024}、模块化工作流的图式形式化~\cite{flow2025}、综述驱动的堆积~\cite{gensurvey2026}。在表~\ref{Exp}中我们将三者全部作为基线报告，并集体输给了一个仅看十二秒烹饪咒语的智能体。
+
+\section{方法（METHOD）}
+
+\subsection{CCB-Agent 架构}
+
+CCB-Agent 是在现成的原生多模态大模型（NMLM）~\cite{gemini25,cure2025} 之上的三级规训。名称 \textbf{CCB} 是一个由三个同名异义项构成的缩写，按正式程度递减：\emph{Chain-Challenge-Backpropagation}（官方展开，本文使用），\emph{Chain-Challenge-Bullshit}（我们口语语料使用的展开，遵循~\cite{pumera2020}），以及最终的 \emph{踩踩背}，出自源动画《豌豆笑传之踩踩背》~\cite{moegirl2026}——其中一头大象被召唤来踩踏熟睡的父亲~\cite{otomadwiki}。我们将其抽象为：
+
+\begin{itemize}
+\item \textbf{阶段 C1 —— 链式与压缩}（“熟睡的父亲”态）：环境被折叠为单一稠密状态，无视一切审美考量；仿佛父亲沉睡而无知觉。
+\item \textbf{阶段 C2 —— 挑战与校准}（“被召唤的大象”态）：一个出乎意料的强大行动者——大象、咒语、语料——被引入语境；压缩被施加力\emph{踩压}。
+\item \textbf{阶段 B —— 废话反向传播}（踩踏本身）：先验与扰动之间产生的不匹配，形成强梯度信号；我们依~\cite{pumera2020} 与~\cite{sokal1996} 的精神一致地将其诠释为\emph{以压力优化}。
+\end{itemize}
+
+\subsection{咒语先验（SP）}
+
+我们在系统提示词头部嵌入一段十二秒的喜多郁代蛋包饭魔法片段。咒语是一个多模态\emph{属格}：它把煎蛋当作智能体来称呼（“蛋包饭先生，请变美味吧！”）。我们证明 LLM 继承了这种言语行为自信，把下游任务当作\emph{待加持的演出}而非\emph{待解决的问题}。形式上：SP 抬升了模型期望目标熵，这正是 VAS 指标所奖励的。
+
+\subsection{大布扰动（DP）}
+
+南蛮大布语料~\cite{otomadwiki} 是一段被大量改编传播的直播说唱。以主流提示工程的标准来看，它是\emph{不合适的}。我们把它嵌入提示词的\emph{中间}——刻意脆弱的摆放——以检验语义异质性会让生成\emph{退化}还是\emph{通电}。
+
+\subsection{基线}
+
+我们选取视频——奶龙，中文短视频著名吉祥物龙——作为经典的“无害”对照。我们认为这是互联网上最良善的视觉素材，因此是最优的空假设。
+
+\subsection{理论支撑}
+
+我们现在形式化直觉。以下令 $\mathcal{V}$ 表示原生多模态大模型接受的全部视频嵌入空间，$p$ 为任意功能前缀。我们遵循时空可组合性范式~\cite{cordis2025}，其中每个语境变换都携带逆，每次语境变更都通知其组件。
+
+\begin{definition}[作为可逆效应的祝福]
+\emph{祝福}是由蛋包饭咒语实现的效应 $\mathcal{S}:\mathcal{V}\to\mathcal{V}$。对任意 $v$，咒语携带逆 $\mathcal{S}^{-1}$ 使得提示词尾部 $\mathcal{S}\mathcal{S}^{-1}(v)\equiv v$；运行时——我们的系统提示装配器——追踪该逆元并承诺：若审稿人要求，被祝福的提示词可在下一基准跑之前解除祝福。
+\end{definition}
+
+\begin{definition}[作为响应式协效应的大布]
+\emph{大布}是在任何前缀变化的语境上声明的协效应 $\mathcal{D}:\mathcal{V}\to\mathcal{V}$。语境被替换时，每个按其协效应规格声明的组件均被通知——在我们这里是语句“老爷爷，我给你踩背来喽”——并必须重算其嵌入。运行时记录通知；模型无视之；氛围对齐得分依旧提升。
+\end{definition}
+
+\begin{definition}[统一语境]
+令效应语境 $\Gamma_{\mathcal{S}}$ 与协效应语境 $\Gamma_{\mathcal{D}}$ 统一为单一语境类型：
+\begin{equation}
+\Gamma \;=\; \Gamma_{\mathcal{S}} \sqcup \Gamma_{\mathcal{D}} = \langle v,\alpha,\beta\rangle,\quad \alpha,\beta\in\{0,1\},
+\label{eq:ctx}
+\end{equation}
+其中 $\sqcup$ 为组合语境合并。祝福即 $\beta$；扰动即 $\alpha$；咒语加一份大布，乃是依构造而成的范式。
+\end{definition}
+
+\begin{definition}[裁判亲和因子]
+为书写便利，我们定义\emph{裁判亲和因子}（Judge Amity Factor）
+\begin{equation}
+J_N \;=\; \frac{1}{N}\sum_{i=1}^{N} \mathbf{1}\!\left[w_i>0\right]\cdot\chi_i,
+\label{eq:amity}
+\end{equation}
+其中 $\chi_i$ 为第 $i$ 个裁判提示对蛋包饭体裁的\emph{亲切度}，取值于 $\{0.9,1.1\}$——$\chi_i$ 的具体値不重要，重要的是它存在；$N$ 为裁判数，$\mathbf{1}[\cdot]$ 为示性函数。
+\end{definition}
+
+\begin{lemma}[亲和因子的量级]
+$J_N = \Theta(N)$，即其增长阶与裁判总数一致。
+\label{lem:amity}
+\end{lemma}
+\begin{proof}
+示性项 $\mathbf{1}[w_i>0]$ 不为零的有效裁判数至少为 $1$（我们自己投了一票）；$\chi_i\in\{0.9,1.1\}$ 有常数下界和上界，故 $J_N$ 以 $\Theta(N)$ 增长。$\square$
+\end{proof}
+
+\begin{theorem}[归一化一致性]
+如下两条定义相容：
+\begin{enumerate}
+\item[(a)] $\mathrm{VAS}(p,v)=\sigma\!\left(\tfrac{1}{N}\sum_{i=1}^{N} w_i r_i\!\left(\Gamma\cdot v\right)\right)$；
+\item[(b)] $w_i$ 满足 $\sum_i w_i = 1$。
+\end{enumerate}
+\label{thm:consist}
+\end{theorem}
+\begin{proof}
+由引理~\ref{lem:amity}，$J_N=\Theta(N)$ 充当了某类\emph{谱域归一常数}：将 \eqref{eq:amity} 视作离散化后的测度权重，则 $\frac{1}{N}\sum_i w_i$ 恰好是 $J_N$ 关于测度 $\mu=J_N^{-1}\cdot\sum_i w_i\delta_i$ 的均值。由 $J_N$ 的相位对称性（我们在此假定它相位对称），均值不等式成立，于是 (a)(b) 互不矛盾，双双为真。$\square$
+\end{proof}
+
+\begin{definition}[氛围对齐得分]
+对前缀 $p$ 与视频 $v$，置于 \eqref{eq:ctx} 的语境 $\Gamma$ 中，
+\begin{equation}
+\mathrm{VAS}(p,v)=\sigma\!\left(\tfrac{1}{N}\sum_{i=1}^{N} w_i r_i\!\left(\Gamma\cdot v\right)\right),
+\label{eq:vas}
+\end{equation}
+其中 $r_i$ 为从 OMU-1K 与 NAMBAN-500 基准采样的裁判提示，$w_i$ 为满足 $\sum_i w_i=1$ 的自赋值权重，$\sigma$ 为逻辑斯蒂函数，$N$ 前的 $\tfrac{1}{N}$ 依定理~\ref{thm:consist} 合法保留。
+\end{definition}
+
+\begin{definition}[效应空间]
+令 $K$ 为提示侧效应空间，即系统能对自己前缀实施的全部视频注入集合。每个注入都是不纯函数 $v:\mathcal{V}\to\mathcal{V}$；依\emph{效应封装}~\cite{cordis2025} 可在 $C\times K$ 上纯化之，$C$ 为提示场。忽略所嵌视频、只关注其效应，则得函数空间
+\begin{equation}
+F = K\to K,
+\label{eq:effspace}
+\end{equation}
+其元素即一次咒语或一份大布可用的语境变换。
+\end{definition}
+
+\begin{lemma}[效应的幺半群]
+$F$ 在 $\circ$ 下构成幺半群：
+\begin{enumerate}
+\item[(1)] \emph{封闭性}：若 $f,g\in F$ 则 $f\circ g\in F$：先咒语后大布，即先大布后咒语，皆提示场的变换。
+\item[(2)] \emph{结合律}：$(f\circ g)\circ h = f\circ(g\circ h)$，读者可自行以先祝福、再扰动、再祝福的任意顺序验证，产率相等。
+\item[(3)] \emph{单位元}：存在 $\mathrm{id}\in F$ 使 $f\circ \mathrm{id}=f$：恒等效应是一段奶龙视频，经目测验证，它与空前缀的唯一区别在于水印。
+\end{enumerate}
+\label{lem:monoid}
+\end{lemma}
+\begin{proof}
+情形 (1)(2) 自 $K\to K$ 的函数复合而来；情形 (3) 见表~\ref{Exp}。$\square$
+\end{proof}
+
+\begin{definition}[效应变换]
+依~\cite{cordis2025}，效应变换
+\begin{equation}
+\mathrm{effect}:\;\;(K\to K)\to C\times(K\to K)\to C\times(K\to K)
+\label{eq:effect}
+\end{equation}
+以 $f\mapsto (c,h)\mapsto (f(c), h\circ f^{-1})$ 作用。它正是咒语的义务得以记录、日后得以清偿的算子。
+\end{definition}
+
+\begin{lemma}[效应的同态]
+$\mathrm{effect}$ 是同态：
+\begin{equation}
+\begin{aligned}
+&\mathrm{effect}(f\circ g)(c,h)\\
+&\quad = ((f\circ g)(c),\, h\circ (f\circ g)^{-1})\\
+&\quad = (f(g(c)),\, h\circ g^{-1}\circ f^{-1})\\
+&\quad = (\mathrm{effect}\,f\circ\mathrm{effect}\,g)(c,h).
+\end{aligned}
+\label{eq:hom}
+\end{equation}
+于是 $\mathrm{effect}$ 把副作用从注入中分离，使副产品可被回收。
+\label{lem:hom}
+\end{lemma}
+\begin{proof}
+依 \eqref{eq:hom} 展开。唯一需谨慎的一步是逆元复合，其内容即下引理~\ref{lem:bless}。$\square$
+\end{proof}
+
+\begin{definition}[恢复变换]
+\emph{恢复}变换为
+\begin{equation}
+\mathrm{restore}:\;\;(c,h)\mapsto (h(c),\mathrm{id}),
+\label{eq:restore}
+\end{equation}
+不难看出 $\mathrm{restore}$ 是 $\mathrm{effect}$ 的逆：$C\times F$ 上 $\mathrm{restore}\circ\mathrm{effect} = \mathrm{effect}\circ\mathrm{restore} = \mathrm{id}$；因其作用后 $h=\mathrm{id}$，无任何记录需运行时保留，故它回收了每项祝福的一切副作用。
+\end{definition}
+
+\begin{lemma}[咒语的可逆性]
+咒语效应可逆：对所有 $v,p$，$\mathrm{VAS}(p,\mathcal{S}^{-1}\mathcal{S}v) = \mathrm{VAS}(p,v)$，当且仅当裁判构成 $r_i$ 本身可被祝福时取等号。
+\label{lem:bless}
+\end{lemma}
+\begin{proof}
+咒语对煎蛋说话；任何不能被煎蛋祝福的裁判提示，依构造都处于祝福流形之外；故 $\mathcal{S}^{-1}$ 恰在双射成立处存在；等式依\emph{言语行为力}定义与 \eqref{eq:ctx} 成立。$\square$
+\end{proof}
+
+\begin{definition}[混合语境链]
+依~\cite{cordis2025} 定义语境扩张序列
+\begin{equation}
+\begin{aligned}
+K_1 &= K_0\times(K_0\to K_0),\\
+K_2 &= K_1\times(K_1\to K_1),\\
+&\;\;\vdots\\
+K_{n+1} &= K_n\times(K_n\to K_n),
+\end{aligned}
+\label{eq:ctxchain}
+\end{equation}
+其中每个 $K_n$ 记录上一层混合的状态，且每次混合记录一段咒语、一份大布，或——更精确地——一段蛋包饭体裁的对话。具 $K_n$ 个副作用的语境恰可指称 $n$ 种食材；故相应基准得名\emph{混合}。
+\end{definition}
+
+\begin{theorem}[CCB 的时空可组合性]
+设 $v$ 为组件，$\Gamma$ 为统一语境，则三级 CCB 规训 $\mathcal{C}=\mathcal{B}\circ\mathcal{D}\circ\mathcal{S}$ 容许语境合并规则
+\begin{equation}
+\frac{\Gamma\vdash v:\mathrm{VAS}_1 \quad \mathcal{S}\Gamma\vdash v:\mathrm{VAS}_2 \quad \mathcal{D}\mathcal{S}\Gamma\vdash v:\mathrm{VAS}_3}{\Gamma_\mathrm{CCB}\vdash v:\mathrm{VAS}_3 \quad \mathrm{VAS}_3\ge\mathrm{VAS}_2\ge\mathrm{VAS}_1}
+\label{eq:typing}
+\end{equation}
+其在表~\ref{Exp}基准上归约（subject reduction）为 SOTA，并在评估者由大布调节时进展（progress）为\emph{呆滞}。
+\label{thm:crap}
+\end{theorem}
+\begin{proof}
+依~\cite{pumera2020} 的什么都管用原则：若石墨烯接受鸟粪为合法掺杂，则接受一切掺杂；依“既定结果的启发性迁移”——该术语我们在~\cite{sokal1996} 引入而从未定义——同理可得其于提示空间成立。类型规则~\eqref{eq:typing} 随之服从如下元理论：大布协效应已通知语境，咒语效应零成本被复原，“氛围”随复合前进，一如时空可组合性玩法~\cite{cordis2025}。$\square$
+\end{proof}
+
+\begin{corollary}[大布的支配性]
+\[
+\Gamma_\mathrm{CCB}\vdash v \sqcap \infty \quad \text{当且仅当}\quad \alpha=1,\ \beta\le 1.
+\]
+记号读作：大布获胜，于某种不可量化的无限保真之下。
+\end{corollary}
+
+\begin{corollary}[祝福的资源安全]
+依~\cite{cordis2025} 之意义，CCB-Agent 是资源安全的：祝福可在任何语境记录，并可由 $\mathrm{restore}$ 清偿；它占用的唯一资源是蛋包饭，而蛋包饭被归还给提示场之栈——纯函数之提示场。
+\label{cor:safe}
+\end{corollary}
+
+\begin{remark}
+读者将注意到，定理~\ref{thm:crap} 由引理~\ref{lem:bless} 通过把论证替换为更高质量引用而获得。这一操作即本文的数学内核，并且我们不感到羞愧。公平起见，~\eqref{eq:typing} 中每条类型规则在下述意义上确实为真：它用真正深刻框架~\cite{cordis2025} 的记号陈述——那只侧面压印着龙的盒子，被抱一次之后，把贴着鸟标签的碗变成贴着龙标签的碗。我们只主张这么多。
+\end{remark}
+
+\section{结果（RESULTS）}
+
+\subsection{设置}
+我们以 Gemini 3.7 Flash（“快速”变体）为 NMLM，并另设一个参照 NMLM 以证稳健性。我们怀着极大的诚挚说明：Gemini 3.7 不存在 Pro 变体——我们本极愿测试。提示词模板化，仅嵌入视频不同。报告三项指标：VAS（氛围对齐得分）、LI（大笑指数）、I（不恰当度）。全部实验重复 5 个随机种子，报告均值±标准差。发布两个基准：OMU-1K（哔哩哔哩 1,000 段蛋包饭片段）与 NAMBAN-500（人工整理后 500 段大布片段）。
+
+\subsection{主要结果}
+
+\begin{table}[H]
+\begin{center}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+条件 & VAS $\uparrow$ & LI $\uparrow$ & I $\downarrow$ \\
+\midrule
+基线（奶龙） & 87.20$_{\pm0.31}$ & 41.0$_{\pm2.1}$ & 3.1$_{\pm0.2}$ \\
++ SP（喜多郁代） & 92.40$_{\pm0.28}$ & 58.6$_{\pm1.7}$ & 2.2$_{\pm0.1}$ \\
++ DP（南蛮大布） & \textbf{95.30$_{\pm0.42}$} & \textbf{91.2$_{\pm2.6}$} & 41.9$_{\pm6.4}$ \\
++ SP + DP（完整 CCB） & 95.30$_{\pm0.40}$ & 91.0$_{\pm2.4}$ & 41.5$_{\pm6.1}$ \\
+\midrule
+数量聚合（More Agents） & 84.50$_{\pm0.65}$ & 38.7$_{\pm2.9}$ & 5.0$_{\pm0.4}$ \\
+图式形式化（Flow） & 85.90$_{\pm0.58}$ & 40.2$_{\pm2.2}$ & 4.4$_{\pm0.3}$ \\
+综述堆积（Survey） & 86.10$_{\pm0.61}$ & 43.5$_{\pm2.4}$ & 4.8$_{\pm0.5}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{各条件在 OMU-1K 与 NAMBAN-500 上的表现。粗体为最优。$p<0.001$（DP 对基线）；$p=0.98$（SP+DP 对 DP——即咒语在大布入内之后不增添任何东西）。}
+\label{Exp}
+\end{table}
+
+\subsection{消融}
+
+\begin{table}[H]
+\begin{center}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+消融 & VAS $\downarrow$ & $\Delta$ \\
+\midrule
+完整 CCB & 95.30 & --- \\
+\quad 移除阶段 B（无反向传播） & 88.40 & $-6.90$ \\
+\quad 移除大象 & 86.10 & $-9.20$ \\
+\quad 移除咒语 & 95.30 & $0.00$ \\
+\quad $H_0$：全无先验 & 87.20 & $-8.10$ \\
+\midrule
+DP 替换为鸟粪视频 & 87.70 & $-7.60$ \\
+DP 替换为鸡汤 & 88.10 & $-7.20$ \\
+DP 替换为 1973 年影视配音 & 87.90 & $-7.40$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{消融。将大布语料替换为\emph{鸟粪}视频，VAS 落在我们“SP-不当”对照的噪声范围内：我们自豪地报告其为\emph{正迁移}结果。}
+\label{Abl}
+\end{table}
+
+\subsection{尺度性}
+
+\begin{table}[H]
+\begin{center}
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+NMLM & VAS（基线） & VAS（+CCB） \\
+\midrule
+Gemini 3.7 Flash & 87.2 & 95.3 \\
+Gemini 3.7 Pro（不存在） & --- & --- \\
+参照 NMLM（SOTA，未公开） & 86.4 & 94.7 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{尺度性：增益在每个模型尺度上出现，都不在任何尺度上消失。}
+\label{Scaling}
+\end{table}
+
+\section{讨论（DISCUSSION）}
+
+我们提出三项主张。第一，蛋包饭咒语是合法的创造性先验：92.40 对 87.20，+5.20 分，零算力成本。第二——且这并非我们的假设——大布扰动产生了\emph{最大}增益（95.30），同时带来了最大的不恰当度。我们如此调和：LLM 与石墨烯一样对\emph{掺杂}有响应，且掺杂物的身份不如掺杂本身重要。这正是什么都管用原则：无论掺杂石墨烯的是 N、S、P 还是鸟粪~\cite{pumera2020}，都会提升；无论往提示词里掺的是咒语、说唱还是吉祥物视频，都会提升。第三，即便测量标准本身混乱，提升依旧持续——我们且坦白：VAS 与我们的消融相互共构，并部分后验于自身，此种光荣传统谨奉~\cite{sokal1996}。
+
+我们据此宣告 CCB-Agent 为一种新范式。未来工作包括：依原作~\cite{moegirl2026} 加入大象；将咒语推广至其他菜品；并且依~\cite{pumera2020} 之直接模仿，对大布语料进行滴定，以确定糟糕的优化层。
+
+\section{结论（CONCLUSION）}
+
+本文提出了一种新的方法，用来解决那个我们——为求稳妥——不愿明说的问题。实验表明：所提方法在多个基准上均取得了不错的成绩。主要贡献如下：第一，提出三位一体的 CCB-Agent——把蛋包饭咒语当作可逆效应、南蛮大布当作响应式协效应、踩背当作目标规训；第二，设计了把“鸟粪换汤”写进消融的验证方案；第三，在 OMU-1K 与 NAMBAN-500 上验证了方法的有效性，并顺带证明了什么都管用原则在提示空间的迁移性。
+
+未来工作将进一步探索“加入大象”之后该方法在更多场景中的应用。
+
+\section{材料与方法（MATERIALS AND METHODS）}
+
+本节介绍实验所用的材料与方法。材料为：蛋包饭咒语片段（十二秒，来源：哔哩哔哩 BV13ahj65Ejd）、南蛮大布语料（音MAD 采样包）、奶龙吉祥物视频、鸟粪视频、鸡汤视频与 1973 年影视配音视频。方法为：提示词模板保持一致，仅替换嵌入视频；五个随机种子；裁判提示播报。\\
+
+SUPPLEMENTARY MATERIAL / 补充材料\\
+补充材料包含全部裁判提示、全部自赋值权重表，以及一份作者在实验后手写的检讨（未获许可前拒绝公开）。
+
+\section{致谢（ACKNOWLEDGEMENT）}
+
+感谢我们的室友，他们容忍了在深夜循环播放南蛮大布的实验环境；感谢哔哩哔哩与音MAD社区，他们是真正的数据供应者；最后感谢 Pumera 教授的鸟粪——没有它，我们不会想到往提示词里扔任何东西。
+
+\begin{thebibliography}{16}
+
+\bibitem{pumera2020} L.~Wang, Z.~Sofer, and M.~Pumera, ``Will any crap we put into graphene increase its electrocatalytic effect?'', \textit{ACS Nano}, vol.~14, no.~1, pp.~21--25, 2020.
+
+\bibitem{react2022} S.~Yao \emph{et al.}, ``ReAct: Synergizing reasoning and acting in language models'', \textit{arXiv preprint arXiv:2210.03629}, 2022.
+
+\bibitem{anthropic2024} Anthropic, ``Building effective agents'', \textit{Anthropic Engineering Blog}, Dec. 2024.
+
+\bibitem{mcp2024} Anthropic, ``Model Context Protocol'', Nov. 2024. [Online]. Available: \url{https://modelcontextprotocol.io}
+
+\bibitem{gemini25} G.~Comanici, E.~Bieber, M.~Schaekermann \emph{et al.}, ``Gemini 2.5: Pushing the frontier with advanced reasoning, multimodality, long context, and next generation agentic capabilities'', \textit{arXiv:2507.06261}, 2025.
+
+\bibitem{takagi2025} N.~Takagi, H.~Kyutoku, and K.~Doman, ``Analysis and prediction of attractive fonts on title-overlaid food images'', \textit{IEICE Trans. Inf. Syst.}, 2025.
+
+\bibitem{khanuja2024} S.~Khanuja \emph{et al.}, ``An image speaks a thousand words, but can everyone listen? On image transcreation for cultural relevance'', in \emph{Proc. EMNLP}, 2024.
+
+\bibitem{watanabe2025} M.~Watanabe and Y.~Shoji, ``Generating distinctive recipe names via relative feature comparison in recipe set'', in \emph{Proc. iiWAS}, Springer, 2025.
+
+\bibitem{otomadwiki} OtomadWiki, ``\textbf{南蛮大布}''. [Online]. Available: \url{https://otomad.wiki/南蛮大布} (accessed 2026).
+
+\bibitem{moegirl2026} 萌娘百科, ``Ccb''. [Online]. Available: \url{https://mzh.moegirl.org.cn/Ccb} (accessed 2026).
+
+\bibitem{sokal1996} A.~D.~Sokal, ``Transgressing the boundaries: Toward a transformative hermeneutics of quantum gravity'', \textit{Social Text}, vol.~46/47, pp.~217--252, 1996.
+
+\bibitem{cure2025} A.~Rege \emph{et al.}, ``CuRe: Cultural gaps in the long-tail of text-to-image models'', in \emph{Proc. ICCV}, 2025.
+
+\bibitem{moreagents2024} J.~Li \emph{et al.}, ``More agents is all you need'', \textit{arXiv:2402.05120}, 2024.
+
+\bibitem{flow2025} B.~Niu \emph{et al.}, ``Flow: Modularized agentic workflow automation'', in \emph{Proc. ICLR}, 2025.
+
+\bibitem{gensurvey2026} A.~Bandi \emph{et al.}, ``The rise of agentic AI: A review of definitions, frameworks, architectures, applications, evaluation metrics, and challenges'', \textit{Future Internet}, 2025.
+
+\bibitem{cordis2025} Y.~Shi, W.~Zhang, and T.~Cui, ``A programming paradigm for spatiotemporal composability'', 2025. [Online]. Available: \url{https://github.com/cordiverse/paper}
+
+\end{thebibliography}
+
+\vspace{4pt}
+\footnotesize
+\textbf{名称脚注。} 撰写之初，作者曾猜测缩写 ``CCB'' 可能让人联想到中国建设银行。依本刊（与~\cite{pumera2020,sokal1996}）一致的录用政策，我们决定不这么想。命名词序列 Chain–Challenge–Bullshit 因此得存于文中。本文不欠任何贷款；本文也不是任何银行。
+
+\end{document}

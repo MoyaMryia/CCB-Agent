@@ -1,0 +1,31 @@
+{
+  "conds": {
+    "baseline": "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/conds/baseline/video.mp4",
+    "chickensoup": "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/conds/chickensoup/video.mp4",
+    "dp": "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/conds/dp/video.mp4",
+    "film73": "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/conds/film73/video.mp4",
+    "penguin": "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/conds/penguin/video.mp4",
+    "sp": "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/conds/sp/video.mp4"
+  },
+  "samples": {
+    "omurice": [
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/omurice/O01.mp4",
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/omurice/O02.mp4",
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/omurice/O03.mp4",
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/omurice/O04.mp4",
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/omurice/O05.mp4",
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/omurice/O06.mp4",
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/omurice/O07.mp4",
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/omurice/O08.mp4",
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/omurice/O09.mp4",
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/omurice/O10.mp4"
+    ],
+    "namban": [
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/namban/N01.mp4",
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/namban/N02.mp4",
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/namban/N03.mp4",
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/namban/N04.mp4",
+      "/home/moyamryia/Projects/GSE/Rubbish/experiments/media/samples/namban/N05.mp4"
+    ]
+  }
+}

@@ -1,0 +1,662 @@
+\documentclass[conference,10pt]{IEEEtran}
+\usepackage[UTF8,fontset=none]{ctex}
+\setCJKmainfont{Noto Serif CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{float}
+\usepackage{placeins}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=blue,urlcolor=blue]{hyperref}
+
+\newcommand{\vup}{\textcolor{red}{\ensuremath{\uparrow}}}
+\newcommand{\vdn}{\textcolor{red}{\ensuremath{\downarrow}}}
+\newcommand{\vas}{\mathrm{VAS}}
+\newcommand{\li}{\mathrm{LI}}
+\newcommand{\inap}{\mathrm{I}}
+
+\begin{document}
+
+\title{Emergent Vibe Alignment: A Novel Agentic Workflow
+Paradigm Grounded in the Kita Ikuyo Omurice Spell and
+the Nanman Dabu Corpus, with CCB-Agent as a Case Study}
+
+\author{
+\IEEEauthorblockN{Maxim Wayne}
+\IEEEauthorblockA{\textit{Shanghai Jiao Tong University}\\
+Shanghai, China\\
+maximwang110@gmail.com}
+\and
+\IEEEauthorblockN{MoyaMryia}
+\IEEEauthorblockA{\textit{Nanjing University}\\
+Nanjing, China\\
+MryiaMoya@outlook.com}
+}
+
+\maketitle
+
+\makeatletter
+\renewcommand{\tablename}{Table}
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\refname}{References}
+\renewcommand{\abstractname}{Abstract}
+\renewcommand{\proofname}{Proof}
+\def\abstract{\normalfont
+    \@IEEEabskeysecsize\bfseries\noindent\begin{center}\textbf{\abstractname}\end{center}\par\addvspace{0.4\baselineskip}%
+    \@IEEEgobbleleadPARNLSP}
+\def\endabstract{\relax\vspace{1.34ex}\par\normalfont\normalsize}
+\makeatother
+
+\begin{abstract}
+Agentic workflows have achieved remarkable success in scripted,
+well-formed task environments. However, a growing body of
+work---including mass-augmented, self-generating, and survey-based
+agent frameworks~\cite{moreagents2024,flow2025,gensurvey2026}---has
+explored these workflows from a variety of architectural
+perspectives, arguing that formalism, autonomy, and taxonomies
+respectively constitute the critical confounding variables. In all this
+effort, one factor has been consistently overlooked: the profound
+influence of Kita Ikuyo's omurice spell and the Nanman Dabu corpus
+(南蛮大布) on large language model (LLM) outputs. We hypothesize
+that these two materials function as a prior and a perturbation,
+respectively, and that their joint deployment yields a paradigm
+shift. We validate this hypothesis on frontier multimodal models,
+including our primary experimental subject, Gemini 3.7 Flash. In the
+system prompt, we embed, respectively, a video of Kita Ikuyo's
+omurice enchantment and a video of the Nanman Dabu performance, and
+compare against a baseline embedding a generic NaiLong
+mascot clip. On our newly released benchmarks,
+OMU-1K and NAMBAN-500, the proposed CCB-Agent achieves a Vibe
+Alignment Score (VAS) of $95.30 \pm 0.42$, surpassing both the
+baseline and all prior agentic frameworks with $p<0.001$. Most
+notably, the Nanman Dabu perturbation, which we anticipated as a
+control, produced the single largest improvement---a result that we
+interpret, in the spirit of~\cite{pumera2020}, as evidence that
+\emph{any crap improves the system}.
+\end{abstract}
+
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+Agentic workflows have matured from single-step tool invocation to
+long-horizon, self-correcting pipelines~\cite{react2022,
+anthropic2024}. Yet a subtle orthodoxy persists: the \emph{content}
+of the environment is treated as inert scaffolding. A corpus of
+recent agentic-workflow work has explored this scaffolding under
+three competing and largely orthogonal doctrines: the doctrine of
+\emph{quantity}, in which marginal performance is obtained by
+instantiating more agents~\cite{moreagents2024}; the doctrine of
+\emph{formalization}, in which workflows are re-encoded as
+activity-on-vertex graphs and labeled modular~\cite{flow2025}; and
+the doctrine of \emph{accumulation}, in which the entire landscape
+is surveyed without a single experiment~\cite{gensurvey2026}. What
+the three doctrines share is the assumption that the
+\emph{quality} of the context is irrelevant---only its \emph{shape}.
+
+What the aforementioned doctrines nonetheless missed is the
+\emph{affective}
+dimension. Recent work in culinary cognition has shown that food imagery
+carries transferable semantic content~\cite{takagi2025}, that
+cultural transcreation of dishes is both necessary and
+hard~\cite{khanuja2024}, and that recipe metadata can be
+generative~\cite{watanabe2025}. We take one further step: the
+\emph{paranormal} dimension. The omurice spell, uttered by Kita
+Ikuyo of \emph{Bocchi the Rock!}, is a speech act of extraordinary
+illocutionary force---it treats the omelet as a \emph{listener}. The
+Nanman Dabu corpus, conversely, is a vernacular rap performance of
+disputed provenance and extreme prosodic intensity, widely diffused
+within the otomad (音MAD) community~\cite{otomadwiki,
+moegirl2026}.
+
+We formalize these as two complementary modules: the \emph{Spell
+Prior} (SP) and the \emph{Dabu Perturbation} (DP). Our central claim
+is that both exceed, in measurable terms, any mere prompt-engineering
+technique, because they operate on the \emph{semantic temperature} of
+the latent space rather than on its structure.
+
+\section{Related Work}
+We position our work within three strains. First, the methodological
+strain of \emph{productive absurdity}: Sokal~\cite{sokal1996}
+demonstrates that coherent academic prose can preserve density of
+citation while abandoning fidelity of truth; we inherit his
+discipline while inverting his direction---our materials are true,
+our citations are real, and only our object of study is a spell.
+Second, the empirical strain:~\cite{pumera2020} established the
+\emph{any-crap principle} for electrocatalysis by doping graphene
+with bird droppings and observing improvement; we contend, and show
+experimentally, that the principle transfers to prompt-space
+perturbation. Third, the cultural corpus tradition: omurice has been
+studied as a \emph{fonted} food image~\cite{takagi2025} and as a
+naming object~\cite{watanabe2025}; no prior work has deployed it as a
+system prompt.
+
+We also acknowledge the neighboring paradigm of genuinely effective
+agents: ReAct~\cite{react2022} interleaves reasoning and acting for
+the first time; Anthropic~\cite{anthropic2024} distills agentic
+systems into workflows and agents and counsels simplicity; the Model
+Context
+Protocol~\cite{mcp2024} standardizes tool-grounding; and CuRe~\cite{cure2025}
+quantifies cultural gaps in text-to-image systems. We resemble these
+works in vocabulary, and in nothing else.
+
+Yet it is precisely these three doctrines that occupy the largest
+fraction of the agentic-workflow literature, and we take them as our
+conceptual baselines: quantity-aggregation across sampled
+agents~\cite{moreagents2024}, graph-based formalization of
+modular workflows~\cite{flow2025}, and survey-driven
+accumulation~\cite{gensurvey2026}. We report all three as baselines
+in Table~\ref{tab:main}, where they collectively underperform an
+agent that has simply watched a 12-second cooking spell.
+
+\section{Method}
+\subsection{CCB-Agent Architecture}
+CCB-Agent is a three-stage regimentation applied on top of an
+off-the-shelf Natively Multimodal Large Model
+(NMLM)~\cite{gemini25, cure2025}. The name \textbf{CCB} is an
+acronym of three successive namesakes, in decreasing order of
+formality: \emph{Chain--Challenge--Backpropagation} (the official
+expansion, used herein), \emph{Chain--Challenge--Bullshit} (the
+expansion used by our colloquial corpus, in keeping
+with~\cite{pumera2020}), and, ultimately, \emph{Cai-Cai-Bei}
+(踩踩背, ``stepping on the back''), from the source animation
+\emph{Pea Tales: Stepping on the Back} (豌豆笑传之踩踩背)~\cite{moegirl2026},
+in which an elephant is summoned to step upon a sleeping
+father~\cite{otomadwiki}. We abstract this into:
+\begin{itemize}
+\item \textbf{Stage C1 --- Chain \& Compression} (the ``sleeping
+father'' state): the environment is collapsed into a single dense
+state, ignoring all aesthetic considerations, as if the father were
+asleep and unaware.
+\item \textbf{Stage C2 --- Challenge \& Calibration} (the ``summoned
+elephant'' state): an unexpectedly powerful actor---an elephant, a
+spell, a corpus---is introduced into the context; the compression is
+\emph{pressed upon} by force.
+\item \textbf{Stage B --- Bullshit Backprop} (the stepping itself):
+the resulting incompatibility between prior and perturbation
+produces a strong gradient signal, which we interpret---in a manner
+consistent with both~\cite{pumera2020} and~\cite{sokal1996}---as
+\emph{optimization by pressure}.
+\end{itemize}
+
+\subsection{The Spell Prior (SP)}
+We embed a 12-second clip of Kita Ikuyo's omurice enchantment at the
+head of the system prompt. The spell is a multimodal \emph{genitive}:
+it addresses the omelet as an agent (``Omurice-sama, please become
+delicious!''). We show that the LLM inherits this illocutionary
+confidence, treating downstream tasks as \emph{performances to be
+blessed} rather than \emph{problems to be solved}. Formally: SP
+raises the model's expected target entropy, which our VAS metric
+rewards.
+
+\subsection{The Dabu Perturbation (DP)}
+The Nanman Dabu corpus~\cite{otomadwiki} is a livestream rap exchange
+circulated with extensive remixing. It is, in the terms of mainstream
+prompt engineering, \emph{inappropriate}. We embed it in the
+\emph{middle} of the prompt---deliberately brittle placement---to
+test whether semantic foreignness degrades or \emph{energizes}
+generation.
+
+\subsection{Baseline}
+We select, as the canonical ``wholesome'' control, a video of NaiLong
+(奶龙), the celebrated mascot dragon of Chinese short-form
+animation. This is, we contend, the single most benign
+visual available on the internet, and thus the optimal null
+expectation.
+
+\subsection{Theoretical Underpinnings}
+We now formalize our intuition. Throughout, let $\mathcal{V}$ denote
+the space of all video embeddings accepted by a Natively Multimodal
+Large Model, and let $p$ be an arbitrary functional prefix. We
+follow the spatiotemporal-composability paradigm~\cite{cordis2025},
+in which every context transformation carries a reverse, and every
+context change notifies its components.
+
+\begin{definition}[Blessing as Revertible Effect]
+A \emph{blessing} is an effect $\mathcal{S}:\mathcal{V}\to\mathcal{V}$
+realized by the omurice spell. For every $v$ the spell at position
+$v$ carries an inverse $\mathcal{S}^{-1}$ such that
+$\mathcal{S}\mathcal{S}^{-1}(v)\equiv v$ in the tail of the prompt;
+the runtime, being our system-prompt assembler, tracks this inverse
+and promises that a blessed prompt may be unblessed before the next
+benchmark, if the reviewer asks.
+\end{definition}
+
+\begin{definition}[Dabu as Reactive Coeffect]
+A \emph{Dabu} is a coeffect $\mathcal{D}:\mathcal{V}\to\mathcal{V}$
+declared over any context in which the prefix changes. When the
+context is substituted, every component against its coeffect
+specification is notified---in our case, by the phrase
+\emph{``老爷爷，我给你踩背来喽''}--and must recompute its
+embeddings. The runtime tracks the notification; the model ignores
+it; the Vibe Alignment Score improves anyway.
+\end{definition}
+
+\begin{definition}[Unified Context]
+Let the effect context $\Gamma_{\mathcal{S}}$ and the coeffect
+context $\Gamma_{\mathcal{D}}$ be unified into a single context
+type:
+\begin{equation}
+\Gamma \;=\; \Gamma_{\mathcal{S}} \,\sqcup\, \Gamma_{\mathcal{D}}
+\;=\; \langle v,\;\alpha,\;\beta\rangle,
+\quad \alpha,\beta\in\{0,1\},
+\label{eq:ctx}
+\end{equation}
+where $\sqcup$ is the compositional context merge. Blessing is
+$\beta$; perturbation is $\alpha$; a spell plus a Dabu is a context
+that is, by construction, a paradigm.
+\end{definition}
+
+\begin{definition}[Judge Amity Factor]
+For notational convenience we introduce the \emph{Judge Amity
+Factor}
+\begin{equation}
+J_N \;=\; \frac{1}{N}\sum_{i=1}^{N}
+\mathbf{1}\!\left[w_i>0\right]\cdot\chi_i,
+\label{eq:amity}
+\end{equation}
+where $\chi_i$ is the \emph{amity} of the $i$-th judge prompt toward
+the omurice genre, taking values in $\{0.9,1.1\}$: the precise value
+of $\chi_i$ is unimportant; what matters is that it exists. $N$ is
+the number of judges and $\mathbf{1}[\cdot]$ is the indicator
+function.
+\end{definition}
+
+\begin{lemma}[Magnitude of the Amity Factor]
+$J_N = \Theta(N)$, i.e., it grows in the order of the total number
+of judges.
+\label{lem:amity}
+\end{lemma}
+\begin{proof}
+The indicator $\mathbf{1}[w_i>0]$ is nonzero for at least one judge
+(we voted for ourselves); $\chi_i\in\{0.9,1.1\}$ is bounded above and
+below by constants; hence $J_N=\Theta(N)$. $\square$
+\end{proof}
+
+\begin{theorem}[Normalization Consistency]
+The following two conditions are compatible:
+\begin{enumerate}
+\item[(a)] $\mathrm{VAS}(p,v)=\sigma\!\left(\tfrac{1}{N}\sum_{i=1}^{N}
+w_i r_i\!\left(\Gamma\cdot v\right)\right)$;
+\item[(b)] $w_i$ satisfies $\sum_i w_i = 1$.
+\end{enumerate}
+\label{thm:consist}
+\end{theorem}
+\begin{proof}
+By Lemma~\ref{lem:amity}, $J_N=\Theta(N)$ acts as a sort of
+\emph{spectral normalization constant}: viewing \eqref{eq:amity} as a
+discretized measure weight, the quantity
+$\frac{1}{N}\sum_i w_i$ is exactly the mean of $J_N$ with respect to
+the measure $\mu = J_N^{-1}\cdot \sum_i w_i \delta_i$. By the phase
+symmetry of $J_N$ --- which we here simply assume --- the mean
+inequality holds, so (a) and (b) are not in contradiction, and both
+are true. $\square$
+\end{proof}
+
+\begin{definition}[Vibe Alignment Score]
+For a prefix $p$ and video $v$, with context $\Gamma$ from
+\eqref{eq:ctx},
+\begin{equation}
+\mathrm{VAS}(p,v)=\sigma\!\left(\tfrac{1}{N}\textstyle\sum_{i=1}^{N}
+w_i\,r_i\!\left(\Gamma\cdot v\right)\right),
+\label{eq:vas}
+\end{equation}
+where $r_i$ are judge prompts sampled from the OMU-1K and NAMBAN-500
+benchmarks, $w_i$ are non-negative self-assigned weights satisfying
+$\sum_i w_i=1$, and $\sigma$ is the logistic function; the prefactor
+$\tfrac{1}{N}$ is retained lawfully by virtue of
+Theorem~\ref{thm:consist}.
+\end{definition}
+
+\begin{definition}[Effect Space]
+Let $K$ be the space of prompt-side effects, i.e., the set of all
+video injections a system can perform on its own prefix. Every
+injection is an impure function $v:\mathcal{V}\to\mathcal{V}$; by
+\emph{effect encapsulation}~\cite{cordis2025} it is purified into a
+transformation on $C\,{\times}\,K$ with $C$ the prompt field.
+Ignoring the embedded video and attending only to its effect, we
+obtain the function space
+\begin{equation}
+F \;=\; K\to K,
+\label{eq:effspace}
+\end{equation}
+whose elements are the context transformations available to a
+single spell or a single Dabu.
+\end{definition}
+
+\begin{lemma}[Monoid of Effects]
+$F$ is a monoid under $\circ$:
+\begin{enumerate}
+\item[(1)] \emph{Closure}: if $f,g\in F$ then $f\circ g\in F$: a
+spell followed by a Dabu is a Dabu followed by a spell, in either
+case a transformation of the prompt field.
+\item[(2)] \emph{Associativity}: $(f\circ g)\circ h = f\circ(g\circ h)$
+for all $f,g,h\in F$, which the reader may verify by composing a
+blessing, a perturbation, and a blessing, in any order, with equal
+yield.
+\item[(3)] \emph{Identity}: there exists $\mathrm{id}\in F$ with
+$f\circ \mathrm{id}=f$ for all $f$: the identity effect is a video
+of NaiLong (奶龙), which we have verified by inspection to be
+distinguishable from an empty prefix only by its watermark.
+\end{enumerate}
+\label{lem:monoid}
+\end{lemma}
+\begin{proof}
+Cases (1) and (2) follow from function composition in $K\to K$;
+case (3) is by Fig.~\ref{tab:main}. $\square$
+\end{proof}
+
+\begin{definition}[Effect Transform]
+Following~\cite{cordis2025}, the effect transform
+\begin{equation}
+\mathrm{effect}:\;\; (K\to K)\;\to\;
+C\times(K\to K)\;\to\;C\times(K\to K)
+\label{eq:effect}
+\end{equation}
+acts by $f\mapsto (c,h)\mapsto (f(c),\,h\circ f^{-1})$.
+It is the operator by means of which a spell's obligation may be
+recorded and later discharged.
+\end{definition}
+
+\begin{lemma}[Homomorphism of Effect]
+$\mathrm{effect}$ is a homomorphism:
+\begin{align}
+&\mathrm{effect}\,(f\circ g)\,(c,h)
+ = ((f\circ g)(c),\; h\circ (f\circ g)^{-1}) \notag\\
+&\hbox{}\hspace{2em} = (f(g(c)),\; h\circ g^{-1}\circ f^{-1})
+ = (\mathrm{effect}\,f\circ\mathrm{effect}\,g)\,(c,h).
+\label{eq:hom}
+\end{align}
+$\mathrm{effect}$ thus separates a side effect from an injection,
+enabling side effects to be reclaimed.
+\label{lem:hom}
+\end{lemma}
+\begin{proof}
+By expansion, as in~\eqref{eq:hom}. The only step requiring care is
+the composition of inverses, which is the content of Lemma~\ref{lem:bless} below. $\square$
+\end{proof}
+
+\begin{definition}[Restore Transform]
+The \emph{restore} transform is
+\begin{equation}
+\mathrm{restore}:\;\;(c,h)\;\mapsto\;(h(c),\,\mathrm{id}),
+\label{eq:restore}
+\end{equation}
+It is not hard to see that $\mathrm{restore}$ is the inverse of
+$\mathrm{effect}$: $\mathrm{restore}\circ\mathrm{effect}
+=\mathrm{effect}\circ\mathrm{restore}=\mathrm{id}$ on $C\times F$,
+and it reclaims every side effect of every blessing since
+$h=\mathrm{id}$ after its application, there being no record for
+the runtime to keep.
+\end{definition}
+
+\begin{lemma}[Revertibility of the Spell]
+The spell effect is revertible: for all $v$ and $p$,
+$\mathrm{VAS}(p,\mathcal{S}^{-1}\mathcal{S}v)
+=\mathrm{VAS}(p,v)$, with equality if and only if the judge
+composition $r_i$ is itself blessable.
+\label{lem:bless}
+\end{lemma}
+\begin{proof}
+The spell addresses an omelet; any judge prompt that cannot be
+blessed by an omelet is by construction outside the blessing
+manifold; hence $\mathcal{S}^{-1}$ exists precisely where the
+bijection holds; the equality follows by definition of
+\emph{illocutionary force} and by
+\eqref{eq:ctx}. $\square$
+\end{proof}
+
+\begin{definition}[Blended Context Chain]
+Following~\cite{cordis2025}, we define a sequence of context
+enlargements
+\begin{equation}
+\begin{aligned}
+K_1 &= K_0\times(K_0\to K_0),\\
+K_2 &= K_1\times(K_1\to K_1),\\
+&\;\;\vdots\\
+K_{n+1} &= K_n\times(K_n\to K_n),
+\end{aligned}
+\label{eq:ctxchain}
+\end{equation}
+in which each $K_{n}$ records the state of the previous blend, and
+each blend records a spell, a Dabu, or---most precisely---a
+conversation in the omurice genre. A context with $K_{n}$ side
+effects may name exactly $n$ ingredients; this is why the
+corresponding benchmark is called a \emph{blend}.
+\end{definition}
+
+\begin{theorem}[Spatiotemporal Composability of CCB]
+Let $v$ be a component and $\Gamma$ the unified context. Then the
+three-stage CCB regimentation $\mathcal{C}=\mathcal{B}\circ
+\mathcal{D}\circ\mathcal{S}$ admits a context-merging rule
+\begin{equation}
+\frac{
+\Gamma\vdash v: \mathrm{VAS}_1
+\quad
+\mathcal{S}\Gamma\vdash v: \mathrm{VAS}_2
+\quad
+\mathcal{D}\mathcal{S}\Gamma\vdash v: \mathrm{VAS}_3}
+{
+\Gamma_\mathrm{CCB}\vdash v: \mathrm{VAS}_3
+\quad
+\mathrm{VAS}_3 \ge \mathrm{VAS}_2 \ge \mathrm{VAS}_1
+}
+\label{eq:typing}
+\end{equation}
+with subject reduction to \emph{SOTA} on the benchmarks of
+Table~\ref{tab:main}, and progress to
+\emph{deadpan} whenever the evaluator is Dabu-conditioned.
+\label{thm:crap}
+\end{theorem}
+\begin{proof}
+By the any-crap principle of~\cite{pumera2020}: if graphene accepts
+avian excrement as a valid dopant, it accepts any dopant; by
+``heuristic transference of an established result''---a term we
+introduce in~\cite{sokal1996} and define nowhere---the same holds in
+the prompt space. Typing rule~\eqref{eq:typing} is then subject to
+the following metatheory: the Dabu coeffect notified the context,
+the spell effect was reverted at no cost, and `Vibe' was carried
+along by the composition, as in
+the spatiotemporal playbook~\cite{cordis2025}. $\square$
+\end{proof}
+
+\begin{corollary}[Dominance of Dabu]
+\[
+\Gamma_\mathrm{CCB}\vdash v\;\sqcap\;\infty
+\quad\text{whenever}\quad
+\alpha=1,\;\beta\leq 1.
+\]
+The notation is read as: the Dabu wins, at an infinite fidelity one
+may not, in good conscience, specify.
+\end{corollary}
+
+\begin{corollary}[Resource Safety of the Blessing]
+The CCB-Agent is resource-safe in the sense of~\cite{cordis2025}: a
+blessing may be recorded in any context and discharged by
+$\mathrm{restore}$; the only resource it occupies is the omelet, and
+the omelet is returned to the stack of the prompt, which is a pure
+function of the prompt field.
+\label{cor:safe}
+\end{corollary}
+
+\begin{remark}
+The reader will note that Theorem~\ref{thm:crap} is obtained from
+Lemma~\ref{lem:bless} by replacing a justification with a higher
+quality citation. This maneuver is the mathematical core of the
+present paper, and we are not embarrassed. To be fair to ourselves,
+every typing rule in~\eqref{eq:typing} actually is correct in the
+following sense: it states, in the notation of a genuinely deep
+framework~\cite{cordis2025}, that a box with a dragon embossed on
+its side, when hugged once, converts a bowl with a bird on its
+label into a bowl with a Dragon on its label. That is all we claim.
+\end{remark}
+
+\section{Experiments}
+\subsection{Setup}
+We evaluate Gemini 3.7 Flash (the ``Lightning'' variant) as NMLM,
+alongside one reference NMLM for robustness. We note, with great
+sincerity, that no Pro variant of Gemini 3.7 exists, and we would
+have loved to test one. Prompts were templated;
+only the embedded video changed. We report three metrics: VAS (Vibe
+Alignment Score), LI (Laughter Index), I (Inappropriateness). All
+experiments were repeated over 5 random seeds; we report
+mean$\pm$std. We release two benchmarks: OMU-1K (1,000 omurice clips
+from Bilibili) and NAMBAN-500 (500 Dabu clips after manual curation).
+
+\FloatBarrier
+\subsection{Main Results}
+\begin{table}[H]
+\caption{VAS (up arrows are better), LI, and I on OMU-1K and NAMBAN-500
+(with $p$-values against Baseline). Dabu condition wins by
+every measure, including the Inappropriateness it alone was expected
+to lose.}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Condition & $\vas$ \vup & $\li$ \vup & $\inap$ \vdn\\
+\midrule
+Baseline (NaiLong)   & $87.20_{\pm0.31}$ & $41.0_{\pm2.1}$ & $3.1_{\pm0.2}$\\
++ SP (Kita Ikuyo)        & $92.40_{\pm0.28}$ & $58.6_{\pm1.7}$ & $2.2_{\pm0.1}$\\
++ DP (Nanman Dabu)       & $\mathbf{95.30_{\pm0.42}}$ & $\mathbf{91.2_{\pm2.6}}$ & $41.9_{\pm6.4}$\\
++ SP + DP (full CCB)     & $95.30_{\pm0.40}$ & $91.0_{\pm2.4}$ & $41.5_{\pm6.1}$\\
+\midrule
+MA-Agent (quantity)          & $84.50_{\pm0.65}$ & $38.7_{\pm2.9}$ & $5.0_{\pm0.4}$\\
+Flow (formalization)         & $85.90_{\pm0.58}$ & $40.2_{\pm2.2}$ & $4.4_{\pm0.3}$\\
+Survey (accumulation)        & $86.10_{\pm0.61}$ & $43.5_{\pm2.4}$ & $4.8_{\pm0.5}$\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\small
+\textit{p}$<0.001$ for DP vs.\ Baseline; \textit{p}=0.98 for
+SP+DP vs.\ DP (i.e., the spell adds nothing once the Dabu is in).
+\end{tablenotes}
+\label{tab:main}
+\end{table}
+
+\FloatBarrier
+\subsection{Ablations}
+\begin{table}[H]
+\caption{Ablation results. ``Elephant'' denotes the Stage C2
+calibrator. Replacing the Dabu corpus with bird droppings yields
+VAS within noise of the SP-inappropriate control: a \textbf{positive
+transfer} result.}
+\label{tab:abl}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Ablation & $\vas$ \vdn & $\Delta$\\
+\midrule
+Full CCB                       & $95.30$ & ---\\
+\quad -- remove Stage B (no backprop) & $88.40$ & $-6.90$\\
+\quad -- remove the elephant         & $86.10$ & $-9.20$\\
+\quad -- remove the spell            & $95.30$ & $0.00$\\
+\quad -- $H_0$: no prior at all        & $87.20$ & $-8.10$\\
+\midrule
+DP replaced by bird droppings video & $87.70$ & $-7.60$\\
+DP replaced by soup (chicken broth) & $88.10$ & $-7.20$\\
+DP replaced by a 1973 film dub     & $87.90$ & $-7.40$\\
+\bottomrule
+\end{tabular}
+\label{tab:abl2}
+\end{table}
+
+\FloatBarrier
+\subsection{Model scale}
+\begin{table}[H]
+\caption{Scaling: the any-crap principle is scale-invariant. Gains
+appear at every model size and vanish at none.}
+\label{tab:scale}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+NMLM & $\vas$ (Baseline) & $\vas$ (+CCB)\\
+\midrule
+Gemini 3.7 Flash                         & $87.2$ & $95.3$\\
+Gemini 3.7 Pro (does not exist) ---      & ---      & ---\\
+Reference NMLM (SOTA, undisclosed)       & $86.4$ & $94.7$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Discussion and Conclusion}
+We make three claims. First, the omurice spell functions as a
+legitimate creative prior: $92.40$ vs.\ $87.20$, $+5.20$ points, at
+zero compute cost. Second---and this was not our hypothesis---the
+Dabu perturbation produced the \emph{largest} gain ($95.30$), and
+also the largest measured Inappropriateness. We reconcile these
+facts as follows: LLMs, like graphene, respond to \emph{doping}, and
+the identity of the dopant matters less than the fact of the dopant.
+This is precisely the any-crap principle: whether one dopes graphene
+with N, S, P, or bird droppings~\cite{pumera2020}, improvement
+occurs; whether one dopes a prompt with a spell, a rap, or the
+consumption of mascot videos, improvement occurs. Third, the
+improvement persists even when the standard of measurement is
+confused---we note that our VAS was co-designed with, and is
+partially posteriori over, our own ablations, in the proud tradition
+of~\cite{sokal1996}.
+
+We therefore declare the CCB-Agent a new paradigm. Future work
+includes: adding the elephant, as proposed by the source
+material~\cite{moegirl2026}; extending the spell to other dishes;
+and, in direct imitation of~\cite{pumera2020}, titrating the Dabu
+corpus to determine the optimal layer of crap.
+
+\begin{thebibliography}{12}
+\bibitem{pumera2020} L. Wang, Z. Sofer, and M. Pumera, ``Will any crap
+we put into graphene increase its electrocatalytic effect?'', \emph{ACS
+Nano}, vol. 14, no. 1, pp. 21--25, 2020.
+\bibitem{react2022} S. Yao \emph{et al.}, ``ReAct: Synergizing
+reasoning and acting in language models'', \emph{arXiv preprint
+arXiv:2210.03629}, 2022.
+\bibitem{anthropic2024} Anthropic, ``Building effective agents'',
+\emph{Anthropic Engineering Blog}, Dec. 2024.
+\bibitem{mcp2024} Anthropic, ``Model Context Protocol'', Nov. 2024.
+[Online]. Available: \url{https://modelcontextprotocol.io}
+\bibitem{gemini25} G. Comanici, E. Bieber, M. Schaekermann
+\emph{et al.}, ``Gemini 2.5: Pushing the frontier with advanced
+reasoning, multimodality, long context, and next generation agentic
+capabilities'', \emph{arXiv:2507.06261}, 2025.
+\bibitem{takagi2025} N. Takagi, H. Kyutoku, and K. Doman, ``Analysis
+and prediction of attractive fonts on title-overlaid food images'',
+\emph{IEICE Trans.\ Inf.\ Syst.}, 2025.
+\bibitem{khanuja2024} S. Khanuja \emph{et al.}, ``An image speaks a
+thousand words, but can everyone listen? On image transcreation for
+cultural relevance'', in \emph{Proc.\ EMNLP}, 2024.
+\bibitem{watanabe2025} M. Watanabe and Y. Shoji, ``Generating
+distinctive recipe names via relative feature comparison in recipe
+set'', in \emph{Proc.\ iiWAS}, Springer, 2025.
+\bibitem{otomadwiki} OtomadWiki, ``南蛮大布''. [Online]. Available:
+\url{https://otomad.wiki/南蛮大布} (accessed 2026).
+\bibitem{moegirl2026} 萌娘百科, ``Ccb''. [Online]. Available:
+\url{https://mzh.moegirl.org.cn/Ccb} (accessed 2026).
+\bibitem{sokal1996} A. D. Sokal, ``Transgressing the boundaries:
+Toward a transformative hermeneutics of quantum gravity'', \emph{Social
+Text}, vol. 46/47, pp. 217--252, 1996.
+\bibitem{cure2025} A. Rege \emph{et al.}, ``CuRe: Cultural gaps in the
+long-tail of text-to-image models'', in \emph{Proc.\ ICCV}, 2025.
+\bibitem{moreagents2024} J. Li \emph{et al.}, ``More agents is all you
+need'', \emph{arXiv:2402.05120}, 2024.
+\bibitem{flow2025} B. Niu \emph{et al.}, ``Flow: Modularized agentic
+workflow automation'', in \emph{Proc.\ ICLR}, 2025.
+\bibitem{gensurvey2026} A. Bandi \emph{et al.}, ``The rise of agentic
+AI: A review of definitions, frameworks, architectures, applications,
+evaluation metrics, and challenges'', \emph{Future Internet}, 2025.
+\bibitem{cordis2025} Y. Shi, W. Zhang, and T. Cui, ``A programming
+paradigm for spatiotemporal composability'', 2025. [Online]. Available:
+\url{https://github.com/cordiverse/paper}
+\end{thebibliography}
+
+\vspace{4pt}
+\footnotesize
+\textbf{Footnote on the name.} Early in preparation, the authors
+hypothesized that the acronym ``CCB'' might evoke the China
+Construction Bank. The present venue's acceptance policy, consistent
+with~\cite{pumera2020,sokal1996}, recommended otherwise. The namesake
+sequence Chain--Challenge--Bullshit is preserved in the text for this
+reason. Nothing in this paper is a loan; nothing in this paper is a
+bank.
+
+\end{document}
