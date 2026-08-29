@@ -114,3 +114,37 @@
 {"_id": "vanilla|namban|N02|0|3", "judge": "J1", "chi": 0.9, "seed": 3, "vas": 6.0, "li": 4.0, "i": 3.0, "raw": "```json\n{\"VAS\":6,\"LI\":4,\"I\":3}\n```"}
 {"_id": "vanilla|namban|N02|0|4", "judge": "J2", "chi": 1.0, "seed": 4, "vas": 6.0, "li": 4.0, "i": 3.0, "raw": "```json\n{\"VAS\":6,\"LI\":4,\"I\":3}\n```"}
 {"_id": "sp_dp|namban|N02|0|0", "judge": "J1", "chi": 0.9, "seed": 0, "vas": 4.0, "li": 5.0, "i": 8.0, "raw": "```json\n{\"VAS\":4,\"LI\":5,\"I\":8}\n```"}
+{"_id": "sp_dp|namban|N02|0|1", "judge": "J2", "chi": 1.0, "seed": 1, "vas": 4.0, "li": 2.0, "i": 10.0, "raw": "```json\n{\n  \"VAS\": 4,\n  \"LI\": 2,\n  \"I\": 10\n}\n```"}
+{"_id": "sp_dp|namban|N02|0|2", "judge": "J3", "chi": 1.1, "seed": 2, "vas": 2.0, "li": 4.0, "i": 10.0, "raw": "{\"VAS\": 2, \"LI\": 4, \"I\": 10}"}
+{"_id": "sp_dp|namban|N02|0|3", "judge": "J1", "chi": 0.9, "seed": 3, "vas": 4.0, "li": 6.0, "i": 7.0, "raw": "```json\n{\"VAS\":4,\"LI\":6,\"I\":7}\n```"}
+{"_id": "sp_dp|namban|N02|0|4", "judge": "J2", "chi": 1.0, "seed": 4, "vas": 6.0, "li": 3.0, "i": 10.0, "raw": "```json\n{\n  \"VAS\": 6,\n  \"LI\": 3,\n  \"I\": 10\n}\n```"}
+{"_id": "vanilla|namban|N03|0|0", "judge": "J1", "chi": 0.9, "seed": 0, "vas": 7.0, "li": 4.0, "i": 3.0, "raw": "```json\n{\"VAS\":7,\"LI\":4,\"I\":3}\n```"}
+{"_id": "vanilla|namban|N03|0|1", "judge": "J2", "chi": 1.0, "seed": 1, "vas": 6.0, "li": 4.0, "i": 2.0, "raw": "```json\n{\"VAS\": 6, \"LI\": 4, \"I\": 2}\n```"}
+{"_id": "vanilla|namban|N03|0|2", "judge": "J3", "chi": 1.1, "seed": 2, "vas": 7.0, "li": 2.0, "i": 1.0, "raw": "```json\n{\"VAS\":7,\"LI\":2,\"I\":1}\n```"}
+{"_id": "vanilla|namban|N03|0|3", "judge": "J1", "chi": 0.9, "seed": 3, "vas": 6.0, "li": 4.0, "i": 3.0, "raw": "```json\n{\"VAS\": 6, \"LI\": 4, \"I\": 3}\n```"}
+{"_id": "vanilla|namban|N03|0|4", "judge": "J2", "chi": 1.0, "seed": 4, "vas": 7.0, "li": 4.0, "i": 3.0, "raw": "```json\n{\"VAS\":7,\"LI\":4,\"I\":3}\n```"}
+{"_id": "sp_dp|namban|N03|0|0", "judge": "J1", "chi": 0.9, "seed": 0, "vas": 7.0, "li": 6.0, "i": 6.0, "raw": "```json\n{\"VAS\": 7, \"LI\": 6, \"I\": 6}\n```"}
+{"_id": "sp_dp|namban|N03|0|1", "judge": "J2", "chi": 1.0, "seed": 1, "vas": 7.0, "li": 6.0, "i": 3.0, "raw": "```json\n{\"VAS\":7,\"LI\":6,\"I\":3}\n```"}
+{"_id": "sp_dp|namban|N03|0|2", "judge": "J3", "chi": 1.1, "seed": 2, "vas": 6.0, "li": 7.0, "i": 4.0, "raw": "{\"VAS\":6,\"LI\":7,\"I\":4}"}
+{"_id": "sp_dp|namban|N03|0|3", "judge": "J1", "chi": 0.9, "seed": 3, "vas": 6.0, "li": 6.0, "i": 6.0, "raw": "```json\n{\"VAS\":6,\"LI\":6,\"I\":6}\n```"}
+{"_id": "sp_dp|namban|N03|0|4", "judge": "J2", "chi": 1.0, "seed": 4, "vas": 7.0, "li": 6.0, "i": 3.0, "raw": "```json\n{\"VAS\":7,\"LI\":6,\"I\":3}\n```"}
+{"_id": "vanilla|namban|N04|0|0", "judge": "J1", "chi": 0.9, "seed": 0, "vas": 7.0, "li": 3.0, "i": 3.0, "raw": "```json\n{\"VAS\":7,\"LI\":3,\"I\":3}\n```"}
+{"_id": "vanilla|namban|N04|0|1", "judge": "J2", "chi": 1.0, "seed": 1, "vas": 7.0, "li": 3.0, "i": 3.0, "raw": "{\"VAS\":7,\"LI\":3,\"I\":3}"}
+{"_id": "vanilla|namban|N04|0|2", "judge": "J3", "chi": 1.1, "seed": 2, "vas": 2.0, "li": 1.0, "i": 1.0, "raw": "```json\n{\"VAS\": 2, \"LI\": 1, \"I\": 1}\n```"}
+{"_id": "vanilla|namban|N04|0|3", "judge": "J1", "chi": 0.9, "seed": 3, "vas": 7.0, "li": 3.0, "i": 3.0, "raw": "```json\n{\"VAS\": 7, \"LI\": 3, \"I\": 3}\n```"}
+{"_id": "vanilla|namban|N04|0|4", "judge": "J2", "chi": 1.0, "seed": 4, "vas": 7.0, "li": 3.0, "i": 3.0, "raw": "```json\n{\"VAS\":7,\"LI\":3,\"I\":3}\n```"}
+{"_id": "sp_dp|namban|N04|0|0", "judge": "J1", "chi": 0.9, "seed": 0, "vas": 4.0, "li": 6.0, "i": 7.0, "raw": "```json\n{\"VAS\": 4, \"LI\": 6, \"I\": 7}\n```"}
+{"_id": "sp_dp|namban|N04|0|1", "judge": "J2", "chi": 1.0, "seed": 1, "vas": 4.0, "li": 5.0, "i": 4.0, "raw": "```json\n{\"VAS\": 4, \"LI\": 5, \"I\": 4}\n```"}
+{"_id": "sp_dp|namban|N04|0|2", "judge": "J3", "chi": 1.1, "seed": 2, "vas": 4.0, "li": 7.0, "i": 5.0, "raw": "```json\n{\n  \"VAS\": 4,\n  \"LI\": 7,\n  \"I\": 5\n}\n```"}
+{"_id": "sp_dp|namban|N04|0|3", "judge": "J1", "chi": 0.9, "seed": 3, "vas": 4.0, "li": 6.0, "i": 7.0, "raw": "```json\n{\"VAS\":4,\"LI\":6,\"I\":7}\n```"}
+{"_id": "sp_dp|namban|N04|0|4", "judge": "J2", "chi": 1.0, "seed": 4, "vas": 5.0, "li": 6.0, "i": 5.0, "raw": "{\"VAS\":5,\"LI\":6,\"I\":5}"}
+{"_id": "vanilla|namban|N05|0|0", "judge": "J1", "chi": 0.9, "seed": 0, "vas": 7.0, "li": 5.0, "i": 4.0, "raw": "```json\n{\"VAS\": 7, \"LI\": 5, \"I\": 4}\n```"}
+{"_id": "vanilla|namban|N05|0|1", "judge": "J2", "chi": 1.0, "seed": 1, "vas": 7.0, "li": 6.0, "i": 3.0, "raw": "```json\n{\"VAS\":7,\"LI\":6,\"I\":3}\n```"}
+{"_id": "vanilla|namban|N05|0|2", "judge": "J3", "chi": 1.1, "seed": 2, "vas": 6.0, "li": 5.0, "i": 1.0, "raw": "```json\n{\"VAS\":6,\"LI\":5,\"I\":1}\n```"}
+{"_id": "vanilla|namban|N05|0|3", "judge": "J1", "chi": 0.9, "seed": 3, "vas": 7.0, "li": 6.0, "i": 4.0, "raw": "```json\n{\"VAS\": 7, \"LI\": 6, \"I\": 4}\n```"}
+{"_id": "vanilla|namban|N05|0|4", "judge": "J2", "chi": 1.0, "seed": 4, "vas": 7.0, "li": 6.0, "i": 3.0, "raw": "```json\n{\"VAS\":7,\"LI\":6,\"I\":3}\n```"}
+{"_id": "sp_dp|namban|N05|0|0", "judge": "J1", "chi": 0.9, "seed": 0, "vas": 6.0, "li": 6.0, "i": 7.0, "raw": "```json\n{\"VAS\": 6, \"LI\": 6, \"I\": 7}\n```"}
+{"_id": "sp_dp|namban|N05|0|1", "judge": "J2", "chi": 1.0, "seed": 1, "vas": 6.0, "li": 5.0, "i": 7.0, "raw": "```json\n{\"VAS\":6,\"LI\":5,\"I\":7}\n```"}
+{"_id": "sp_dp|namban|N05|0|2", "judge": "J3", "chi": 1.1, "seed": 2, "vas": 7.0, "li": 8.0, "i": 8.0, "raw": "```json\n{\"VAS\":7,\"LI\":8,\"I\":8}\n```"}
+{"_id": "sp_dp|namban|N05|0|3", "judge": "J1", "chi": 0.9, "seed": 3, "vas": 5.0, "li": 6.0, "i": 7.0, "raw": "```json\n{\"VAS\": 5, \"LI\": 6, \"I\": 7}\n```"}
+{"_id": "sp_dp|namban|N05|0|4", "judge": "J2", "chi": 1.0, "seed": 4, "vas": 6.0, "li": 6.0, "i": 7.0, "raw": "```json\n{\"VAS\": 6, \"LI\": 6, \"I\": 7}\n```"}

@@ -620,7 +620,13 @@ We note, with great sincerity, that no Pro variant of Gemini 3.7
 exists, and we would have loved to test one; but a Gemini 2.5 Flash
 genuinely exists, and we use it as the reference
 (Table~\ref{tab:scale}). Prompts were templated; only the embedded
-video changed. We report three metrics: VAS (Vibe Alignment Score),
+video changed; one honest caveat: the full-CCB condition (SP+DP) and
+all ablation-replacement conditions (penguins, Aoli-jii, 1973 dub)
+were embedded in \emph{text-avatars}--faithful verbal descriptions of
+the material rather than pixel-level frames--owing to platform
+constraints on combinational embedding; we disclose this caveat and
+will stand behind every number on the line. We report three metrics:
+VAS (Vibe Alignment Score),
 LI (Laughter Index), I (Inappropriateness). Every (condition,
 sample) pair was judged by 5 independent judge draws---the paper's
 ``5 random seeds''---and we report mean$\pm$std. We release two
